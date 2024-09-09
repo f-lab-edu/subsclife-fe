@@ -1,10 +1,16 @@
-import GlobalStyles from "@/styles/global.styled";
+import styled from "styled-components";
+
+//* styled-components theme 사용 예시
+const Container = styled.div`
+  background: ${({ theme }) => theme.color.green};
+`;
 
 function App() {
   return (
     <>
-      <GlobalStyles />
-      <main>main</main>
+      <main>
+        <Container>main</Container>
+      </main>
     </>
   );
 }
