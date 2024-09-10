@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import App from "./App";
+import Main from "@/pages/Main";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <div>메인 페이지</div>,
+        element: <Main />,
       },
       {
         path: "/search",
