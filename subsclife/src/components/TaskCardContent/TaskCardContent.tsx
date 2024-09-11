@@ -20,12 +20,14 @@ interface TaskCardContentProps extends CSSComponentType {
 
 const TaskCardContent = ({
   type = "yellow",
+  icon: Icon,
   onClick,
   children,
   css = cssStyle``,
-}: TaskCardContentProps) => {
+}: TaskCardContentProps & { icon: ReactNode }) => {
   return (
     <Styled.Container type={type} $css={css} onClick={onClick}>
+      <i>{Icon}</i>
       {children}
     </Styled.Container>
   );
@@ -33,13 +35,11 @@ const TaskCardContent = ({
 
 const TaskCardContentSubscriber = ({
   children,
-  icon: Icon,
   prefix: Prefix,
   css = cssStyle``,
-}: CSSComponentType & { icon: ReactNode; prefix?: ReactNode }) => {
+}: CSSComponentType & { prefix?: ReactNode }) => {
   return (
     <Styled.Subscriber $css={css}>
-      <i>{Icon}</i>
       {Prefix}
       <p>{children}</p>
     </Styled.Subscriber>

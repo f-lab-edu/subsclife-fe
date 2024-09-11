@@ -37,15 +37,13 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
 
   return (
     <TaskCardContent
+      icon={<Icons.UpRightArrowIcon />}
       css={css`
         margin-bottom: 20px;
       `}
       onClick={taskCardClickHandler}
     >
-      <TaskCardContent.Subscriber
-        icon={<Icons.UpRightArrowIcon />}
-        prefix={<Icons.AvatarCircleIcon />}
-      >
+      <TaskCardContent.Subscriber prefix={<Icons.AvatarCircleIcon />}>
         {subscriberCount || 1}
       </TaskCardContent.Subscriber>
       <TaskCardContent.Title

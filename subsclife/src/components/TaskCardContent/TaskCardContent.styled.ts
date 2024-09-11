@@ -11,12 +11,6 @@ const Subscriber = styled.div<RuleSetCSSType>`
   margin-top: 17px;
   margin-bottom: 5px;
 
-  i {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-  }
-
   p {
     font-size: 15px;
   }
@@ -157,6 +151,12 @@ const Container = styled.div<RuleSetCSSType & { type: "yellow" | "green" }>`
   width: 100%;
   padding: 20px;
   border-radius: 10px;
+
+  i {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
 
   ${({ $css }) => css`
     ${$css}
