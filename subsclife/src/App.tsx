@@ -14,6 +14,11 @@ const Container = styled.div`
 
 const Main = styled.main`
   flex: 1;
+  overflow: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const App = ({ children }: PropsWithChildren) => {

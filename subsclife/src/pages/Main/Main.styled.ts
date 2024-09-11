@@ -8,6 +8,18 @@ const Container = styled.div`
     font-weight: bold;
     color: ${({ theme }) => theme.color.black};
     margin-bottom: 5px;
+
+    span {
+      font-weight: 400;
+    }
+
+    em {
+      font-weight: bold;
+    }
+  }
+
+  .task-box {
+    margin-bottom: 40px;
   }
 `;
 

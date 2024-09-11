@@ -8,7 +8,6 @@ export interface TaskType {
   taskId: number;
   title: string;
   simpleInfo?: string;
-  detail?: string;
   subscriberCount: number;
   startDate: Date;
   endDate: Date;
@@ -19,15 +18,8 @@ interface TaskCardProps {
 }
 
 const TaskCard = ({ cardData }: TaskCardProps) => {
-  const {
-    taskId,
-    title,
-    simpleInfo,
-    detail,
-    subscriberCount,
-    startDate,
-    endDate,
-  } = cardData;
+  const { taskId, title, simpleInfo, subscriberCount, startDate, endDate } =
+    cardData;
 
   const start = dayjs(startDate);
   const end = dayjs(endDate);
