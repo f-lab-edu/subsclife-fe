@@ -183,7 +183,7 @@ const Container = styled.div<RuleSetCSSType & { type: "yellow" | "green" }>`
         `}
 `;
 
-const ToggleButton = styled.div`
+const ToggleButton = styled.button`
   position: absolute;
   left: 0;
   bottom: 0;

@@ -143,7 +143,10 @@ const TaskCardContentRemind = ({
 const TaskCardContentToggle = ({ children }: PropsWithChildren) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const toggleHandler = () => setIsOpen((prev) => !prev);
+  const toggleHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setIsOpen((prev) => !prev);
+  };
 
   return (
     <>
