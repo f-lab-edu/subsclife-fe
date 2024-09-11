@@ -7,6 +7,7 @@ const Container = styled.div`
     font-size: 18px;
     font-weight: bold;
     color: ${({ theme }) => theme.color.black};
+    margin-bottom: 5px;
   }
 `;
 
