@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { css as cssStyle, RuleSet } from "styled-components";
 import { MouseEvent, PropsWithChildren, ReactNode, useState } from "react";
 
@@ -62,8 +62,8 @@ const TaskCardContentSimpleInfo = ({
 
 type TaskCardContentDateType = {
   taskId: number;
-  startDate: string | Date;
-  endDate: string | Date;
+  startDate: string | Date | Dayjs;
+  endDate: string | Date | Dayjs;
 };
 
 const TaskCardContentDate = ({
@@ -97,20 +97,23 @@ const TaskCardContentDate = ({
   );
 };
 
-const TaskCardContentGuage = ({
+const TaskCardContentGauge = ({
   startDate,
   endDate,
-}: Omit<TaskCardContentDateType, "taskId">) => {
+  guageColor = "white",
+}: Omit<TaskCardContentDateType, "taskId"> & {
+  guageColor?: "white" | "yellow";
+}) => {
   const { percent, leftTime } = useTaskMinuteGuage({
     start: startDate,
     end: endDate,
   });
 
   return (
-    <Styled.Guage $percent={percent}>
+    <Styled.Gauge $percent={percent} $gaugecolor={guageColor}>
       <div className="gauge" />
       <p>{leftTime}</p>
-    </Styled.Guage>
+    </Styled.Gauge>
   );
 };
 
@@ -157,7 +160,7 @@ const TaskCard = Object.assign(TaskCardContent, {
   Title: TaskCardContentTitle,
   SimpleInfo: TaskCardContentSimpleInfo,
   Date: TaskCardContentDate,
-  Guage: TaskCardContentGuage,
+  Gauge: TaskCardContentGauge,
   Remind: TaskCardContentRemind,
   Toggle: TaskCardContentToggle,
 });

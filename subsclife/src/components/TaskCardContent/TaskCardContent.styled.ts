@@ -99,7 +99,10 @@ const Date = styled.div<RuleSetCSSType>`
   `}
 `;
 
-const Guage = styled.div<{ $percent: number }>`
+const Gauge = styled.div<{
+  $percent: number;
+  $gaugecolor?: "white" | "yellow";
+}>`
   position: relative;
   display: flex;
   align-items: center;
@@ -107,8 +110,8 @@ const Guage = styled.div<{ $percent: number }>`
   width: 100%;
   height: 32px;
   border-radius: 9999px;
-  background-color: ${({ theme }) => theme.color.white};
-  font-size: 14px;
+  background-color: ${({ theme, $gaugecolor }) =>
+    $gaugecolor === "yellow" ? theme.color["yellow-6"] : theme.color.white};
   overflow: hidden;
 
   .gauge {
@@ -122,6 +125,8 @@ const Guage = styled.div<{ $percent: number }>`
   }
 
   p {
+    font-size: 14px;
+    color: ${({ theme }) => theme.color.black};
     z-index: 2;
   }
 `;
@@ -203,7 +208,7 @@ export {
   Title,
   SimpleInfo,
   Date,
-  Guage,
+  Gauge,
   ReadyToRemind,
   ToggleButton,
   ToggleContent,

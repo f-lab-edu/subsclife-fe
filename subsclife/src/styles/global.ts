@@ -8,6 +8,12 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  button {
+    background: none;
+    border: none;
+    outline: none;
+  }
+
   @font-face {
     font-family: 'Pretendard';
     font-weight: 400;

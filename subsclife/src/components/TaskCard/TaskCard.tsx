@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { css } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import TaskCardContent from "../TaskCardContent";
 import * as Icons from "@/assets/icons";
@@ -18,8 +19,8 @@ interface TaskCardProps {
 }
 
 const TaskCard = ({ cardData }: TaskCardProps) => {
-  const { taskId, title, simpleInfo, subscriberCount, startDate, endDate } =
-    cardData;
+  const navigate = useNavigate();
+  const { taskId, title, subscriberCount, startDate, endDate } = cardData;
 
   const start = dayjs(startDate);
   const end = dayjs(endDate);
@@ -31,6 +32,7 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
 
   const taskCardClickHandler = () => {
     console.log("click TaskCardContent");
+    navigate(`/task/${taskId}`);
   };
 
   return (
@@ -62,7 +64,7 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
         />
       )}
       {isStartTask && (
-        <TaskCardContent.Guage
+        <TaskCardContent.Gauge
           startDate={startDate.toString()}
           endDate={endDate.toString()}
         />
