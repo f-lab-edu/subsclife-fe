@@ -42,8 +42,9 @@ const WriteTaskDetail = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
       </Header>
       <Layout.Content>
         <Styled.Title>
-          어떤 활동을
-          <br /> 목표로 해 디테일
+          한 줄 소개 및 설명을
+          <br />
+          작성 해 볼까요?
         </Styled.Title>
         <Styled.SubTitle>목표 활동을 적어주세요.</Styled.SubTitle>
         <Styled.TextareaWrapper>

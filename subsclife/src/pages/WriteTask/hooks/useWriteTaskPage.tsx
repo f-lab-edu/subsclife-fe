@@ -1,14 +1,19 @@
+import { css } from "styled-components";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import Modal from "@/components/Modal";
 import WriteTaskGoal from "../WriteTaskGoal";
 import WriteTaskDetail from "../WriteTaskDetail";
 import WriteTaskPeriod from "../WriteTaskPeriod";
 import { TaskForWritingType } from "../WriteTask";
+import { postTask } from "@/api/task";
+import globalStore from "@/store/global";
 
 const useWriteTaskPage = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
+  const { toggleModal, changeModal } = globalStore();
   const page = Number(new URLSearchParams(search).get("page"));
   const [task, setTask] = useState<TaskForWritingType>({
     title: "",
@@ -38,9 +43,29 @@ const useWriteTaskPage = () => {
     }
   };
 
-  const createNewTask = (newTask: Partial<TaskForWritingType>) => {
+  const createNewTask = async (newTask: Partial<TaskForWritingType>) => {
     const completedTask = { ...task, ...newTask };
-    console.log(completedTask);
+    const result = await postTask(completedTask);
+    if (result === 200) {
+      changeModal(() => (
+        <Modal
+          size="fit-content"
+          css={css`
+            div {
+              width: 100%;
+              font-size: 18px;
+              font-weight: bold;
+              text-align: center;
+              padding: 20px 10px;
+            }
+          `}
+        >
+          <div>활동이 등록되었습니다!</div>
+        </Modal>
+      ));
+      toggleModal(true);
+      navigate("/");
+    }
   };
 
   const pages = [

@@ -4,7 +4,7 @@ import { useState } from "react";
 import globalStore from "@/store/global";
 import Modal from "@/components/Modal";
 import DateTimeChecker from "@/components/DateTimeChecker";
-import { TaskForWritingType } from "../../WriteTask";
+import { TaskForWritingType } from "../WriteTask";
 
 const useWriteTaskCalendar = (task: TaskForWritingType) => {
   const { toggleModal, changeModal } = globalStore();
@@ -12,12 +12,12 @@ const useWriteTaskCalendar = (task: TaskForWritingType) => {
   const [endDate, setEndDate] = useState<string>(task.endDate || "");
 
   const updateStartDate = (date: Date) => {
-    setStartDate(date.toString());
+    setStartDate(dayjs(date).toJSON());
     closeModal();
   };
 
   const updateEndDate = (date: Date) => {
-    setEndDate(date.toString());
+    setEndDate(dayjs(date).toJSON());
     closeModal();
   };
 
