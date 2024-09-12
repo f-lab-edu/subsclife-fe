@@ -1,6 +1,7 @@
 import instance from "./instance";
 import { TaskType } from "@/components/TaskCard/TaskCard";
 import { TaskDetailType } from "@/pages/TaskDetail/TaskDetail";
+import { AxiosError } from "axios";
 
 export const getTasks = async (): Promise<TaskType[]> => {
   try {
@@ -25,5 +26,19 @@ export const getTaskByTaskId = async (
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const postTaskForUnsubscribeById = async (taskId: number) => {
+  try {
+    const result = await instance.post(
+      `/api/v1/users/unsubscribe?task_id=${taskId}`
+    );
+
+    return result.status;
+  } catch (error) {
+    const err = error as AxiosError;
+    console.log(err);
+    return err.status;
   }
 };

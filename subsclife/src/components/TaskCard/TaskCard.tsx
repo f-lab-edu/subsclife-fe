@@ -10,8 +10,8 @@ export interface TaskType {
   title: string;
   simpleInfo?: string;
   subscriberCount: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 }
 
 interface TaskCardProps {
@@ -24,11 +24,11 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
 
   const start = dayjs(startDate);
   const end = dayjs(endDate);
-  const current = dayjs();
+  const now = dayjs();
 
-  const isReadyTask = current.isBefore(start);
-  const isStartTask = current.isAfter(start) && current.isBefore(end);
-  const isFinishedTask = current.isAfter(end);
+  const isReadyTask = now.isBefore(start) && now.isBefore(end);
+  const isStartTask = now.isAfter(start) && now.isBefore(end);
+  const isFinishedTask = now.isAfter(end);
 
   const taskCardClickHandler = () => {
     console.log("click TaskCardContent");
@@ -56,22 +56,22 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
 
       {isReadyTask && (
         <TaskCardContent.Date
+          css={css`
+            margin-bottom: 10px;
+          `}
           taskId={taskId}
           startDate={startDate}
           endDate={endDate}
         />
       )}
       {isStartTask && (
-        <TaskCardContent.Gauge
-          startDate={startDate.toString()}
-          endDate={endDate.toString()}
-        />
+        <TaskCardContent.Gauge startDate={startDate} endDate={endDate} />
       )}
       {isFinishedTask && (
         <TaskCardContent.Remind
           taskId={taskId}
-          startDate={startDate.toString()}
-          endDate={endDate.toString()}
+          startDate={startDate}
+          endDate={endDate}
         />
       )}
     </TaskCardContent>
