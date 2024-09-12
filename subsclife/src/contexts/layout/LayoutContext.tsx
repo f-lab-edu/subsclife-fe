@@ -7,7 +7,7 @@ interface LayoutContextType {
   changeFooter: (component: ReactNode) => void;
 }
 
-const LayoutContext = createContext<LayoutContextType | null>({});
+const LayoutContext = createContext<LayoutContextType | null>(null);
 
 const useLayoutContext = () => {
   const context = useContext(LayoutContext);
