@@ -13,7 +13,7 @@ import * as Icons from "@/assets/icons";
 import * as Styled from "./TaskDetail.styled";
 
 export type UserType = {
-  userId: 0;
+  userId: number;
   name: string;
   nickname: string;
 };
@@ -33,7 +33,8 @@ const TaskDetail = () => {
   const navigate = useNavigate();
   const { changeHeader, changeFooter } = useLayoutContext();
   const { taskId: taskDetailId } = useParams() as { taskId: string };
-  const { task, isLoading, isError } = useTaskDetail(taskDetailId);
+  const { task, isLoading, isError, subscribe, unsubscribe } =
+    useTaskDetail(taskDetailId);
 
   const now = dayjs();
   const isBeforeStart = now.isBefore(dayjs(task?.startDate));
@@ -52,13 +53,19 @@ const TaskDetail = () => {
         </button>
 
         {!isError && !task?.isSubscribed && isTaskStart && (
-          <Styled.SubscribeButton $subscribed={task?.isSubscribed}>
+          <Styled.SubscribeButton
+            $subscribed={task?.isSubscribed}
+            onClick={subscribe}
+          >
             구독
           </Styled.SubscribeButton>
         )}
 
         {!isError && task?.isSubscribed && isTaskStart && (
-          <Styled.SubscribeButton $subscribed={task?.isSubscribed}>
+          <Styled.SubscribeButton
+            $subscribed={task?.isSubscribed}
+            onClick={unsubscribe}
+          >
             구독 취소
           </Styled.SubscribeButton>
         )}
@@ -90,14 +97,14 @@ const TaskDetail = () => {
       <h1>{title}</h1>
       <p className="simple_desc">{simpleInfo}</p>
       <div className="gauge">
-        {isBeforeStart && !isTaskStart && (
+        {isBeforeStart && (
           <TaskCardContent.NotStart
             taskId={taskId}
             startDate={startDate}
             endDate={endDate}
           />
         )}
-        {isTaskStart && !isBetweenRemindPeriod && (
+        {!isBeforeStart && isTaskStart && (
           <TaskCardContent.Gauge
             startDate={startDate}
             endDate={endDate}
@@ -105,7 +112,7 @@ const TaskDetail = () => {
           />
         )}
 
-        {isBetweenRemindPeriod && (
+        {!isTaskStart && isBetweenRemindPeriod && (
           <TaskCardContent.Remind
             taskId={taskId}
             startDate={startDate}

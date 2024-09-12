@@ -8,6 +8,7 @@ import { isBeforeActiveTask } from "@/utils/date";
 
 import * as Styled from "./TaskCardContent.styled";
 import * as Icons from "@/assets/icons";
+import { postTaskForSubscribeById } from "@/api/task";
 
 interface CSSComponentType {
   children?: ReactNode;
@@ -79,9 +80,12 @@ const TaskCardContentDate = ({
 
   const isBeforeStart = isBeforeActiveTask({ current: now, start: startDate });
 
-  const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+  const clickHandler = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    console.log("구독");
+    const result = await postTaskForSubscribeById(taskId);
+    if (result === 200) {
+      console.log("구독 성공");
+    }
   };
 
   return (
@@ -96,7 +100,7 @@ const TaskCardContentDate = ({
           {taskEndDate}
         </p>
       </div>
-      {isBeforeStart && <button onClick={clickHandler}>구독</button>}
+      {!isBeforeStart && <button onClick={clickHandler}>구독</button>}
     </Styled.Date>
   );
 };
