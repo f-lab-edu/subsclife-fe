@@ -5,6 +5,7 @@ import RemindInfo from "./pages/Remind/RemindInfo/RemindInfo";
 import RemindAchieve from "./pages/Remind/RemindArchive/RemindArchive";
 import RemindPros from "./pages/Remind/RemindPros/RemindPros";
 import RemindCons from "./pages/Remind/RemindCons/RemindCons";
+import RemindImprove from "./pages/Remind/RemindImprove/RemindImprove";
 
 const router = createBrowserRouter([
   {
@@ -79,7 +80,7 @@ const router = createBrowserRouter([
           },
           {
             path: ":remindId/improve",
-            element: <div>회고 개선점 페이지</div>,
+            element: <RemindImprove />,
           },
         ],
       },
