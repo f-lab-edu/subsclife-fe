@@ -6,12 +6,15 @@ import { RouterProvider } from "react-router-dom";
 import router from "./router.tsx";
 import { theme } from "@/styles/theme";
 import GlobalStyles from "@/styles/global";
+import { LayoutProvider } from "./contexts/layout/LayoutProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <RouterProvider router={router} />
+      <LayoutProvider>
+        <GlobalStyles />
+        <RouterProvider router={router} />
+      </LayoutProvider>
     </ThemeProvider>
   </StrictMode>
 );

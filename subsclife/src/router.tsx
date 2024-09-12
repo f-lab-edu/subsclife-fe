@@ -1,5 +1,8 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
+
 import App from "./App";
+import Main from "@/pages/Main";
+import TaskDetail from "@/pages/TaskDetail";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <div>메인 페이지</div>,
+        element: <Main />,
       },
       {
         path: "/search",
@@ -42,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/task/:taskId",
-        element: <div>태스크 상세 페이지</div>,
+        element: <TaskDetail />,
       },
       {
         path: "/history",
