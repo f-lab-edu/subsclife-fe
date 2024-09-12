@@ -1,5 +1,10 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import App from "./App";
+import Remind from "./pages/Remind/Remind";
+import RemindInfo from "./pages/Remind/RemindInfo/RemindInfo";
+import RemindAchieve from "./pages/Remind/RemindArchive/RemindArchive";
+import RemindPros from "./pages/Remind/RemindPros/RemindPros";
+import RemindCons from "./pages/Remind/RemindCons/RemindCons";
 
 const router = createBrowserRouter([
   {
@@ -54,27 +59,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/remind",
-        element: (
-          <div>
-            <Outlet />
-          </div>
-        ),
+        element: <Remind />, 
         children: [
           {
             path: ":remindId/info",
-            element: <div>회고 작성 정보 페이지</div>,
+            element: <RemindInfo />,
           },
           {
             path: ":remindId/archive",
-            element: <div>회고 달성률 체크 페이지</div>,
+            element: <RemindAchieve />,
           },
           {
             path: ":remindId/pros",
-            element: <div>회고 달성 이유 페이지</div>,
+            element: <RemindPros />,
           },
           {
             path: ":remindId/cons",
-            element: <div>회고 미달성 이유 페이지</div>,
+            element: <RemindCons />,
           },
           {
             path: ":remindId/improve",
