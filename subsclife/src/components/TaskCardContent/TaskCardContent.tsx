@@ -4,6 +4,7 @@ import { MouseEvent, PropsWithChildren, ReactNode, useState } from "react";
 
 import useTaskHourTimer from "./hooks/useTaskHourTimer";
 import useTaskMinuteGuage from "./hooks/useTaskMinuteTimer";
+import { isBeforeActiveTask } from "@/utils/date";
 
 import * as Styled from "./TaskCardContent.styled";
 import * as Icons from "@/assets/icons";
@@ -72,8 +73,11 @@ const TaskCardContentDate = ({
   endDate,
   css = cssStyle``,
 }: CSSComponentType & TaskCardContentDateType) => {
+  const now = dayjs();
   const taskStartDate = dayjs(startDate).format("YYYY년 M월 D일 H시");
   const taskEndDate = dayjs(endDate).format("YYYY년 M월 D일 H시");
+
+  const isBeforeStart = isBeforeActiveTask({ current: now, start: startDate });
 
   const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -92,9 +96,20 @@ const TaskCardContentDate = ({
           {taskEndDate}
         </p>
       </div>
-      <button onClick={clickHandler}>구독</button>
+      {isBeforeStart && <button onClick={clickHandler}>구독</button>}
     </Styled.Date>
   );
+};
+
+const TaskCardContentNotStartTask = ({
+  startDate,
+}: TaskCardContentDateType) => {
+  const { leftTime } = useTaskHourTimer({
+    start: dayjs(),
+    end: dayjs(startDate),
+  });
+
+  return <Styled.NotStart>시작 {leftTime}</Styled.NotStart>;
 };
 
 const TaskCardContentGauge = ({
@@ -163,6 +178,7 @@ const TaskCard = Object.assign(TaskCardContent, {
   Title: TaskCardContentTitle,
   SimpleInfo: TaskCardContentSimpleInfo,
   Date: TaskCardContentDate,
+  NotStart: TaskCardContentNotStartTask,
   Gauge: TaskCardContentGauge,
   Remind: TaskCardContentRemind,
   Toggle: TaskCardContentToggle,
