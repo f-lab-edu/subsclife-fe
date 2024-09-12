@@ -2,9 +2,9 @@ import { useEffect } from "react";
 
 import Footer from "@/layouts/Footer";
 import LogoHeader from "@/layouts/LogoHeader";
-import { useLayoutContext } from "@/contexts/layout/LayoutContext";
-import useTasks from "@/hooks/useTasks";
 import TaskCard from "@/components/TaskCard";
+import useTasks from "@/hooks/useTasks";
+import { useLayoutContext } from "@/contexts/layout/LayoutContext";
 
 import * as Styled from "./Main.styled";
 

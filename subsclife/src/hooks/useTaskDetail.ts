@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { getTaskByTaskId } from "@/api/task";
+import {
+  getTaskByTaskId,
+  postTaskForSubscribeById,
+  postTaskForUnsubscribeById,
+} from "@/api/task";
 import { TaskDetailType } from "@/pages/TaskDetail/TaskDetail";
+
+const SUCESS_RESULT_CODE = 200;
 
 const useTaskDetail = (taskId: string) => {
   const [task, setTask] = useState<TaskDetailType>();
@@ -20,11 +26,35 @@ const useTaskDetail = (taskId: string) => {
     setIsLoading(false);
   };
 
+  const subscribeByTaskId = async () => {
+    if (task) {
+      const result = await postTaskForSubscribeById(task.taskId);
+      if (result === SUCESS_RESULT_CODE) {
+        getSingleTask();
+      }
+    }
+  };
+
+  const unsubscribeByTaskId = async () => {
+    if (task) {
+      const result = await postTaskForUnsubscribeById(task.taskId);
+      if (result === SUCESS_RESULT_CODE) {
+        getSingleTask();
+      }
+    }
+  };
+
   useEffect(() => {
     getSingleTask();
   }, []);
 
-  return { task, isLoading, isError };
+  return {
+    task,
+    isLoading,
+    isError,
+    subscribe: subscribeByTaskId,
+    unsubscribe: unsubscribeByTaskId,
+  };
 };
 
 export default useTaskDetail;
