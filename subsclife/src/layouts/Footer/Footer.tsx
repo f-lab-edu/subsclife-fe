@@ -11,7 +11,7 @@ const FooterIcons = [
   },
   {
     url: "/search",
-    icon: <Icons.SearchIcon />,
+    icon: <Icons.SearchIcon fill="#F5F7F8" />,
     activeIcon: <Icons.FilledSearchIcon />,
   },
   {

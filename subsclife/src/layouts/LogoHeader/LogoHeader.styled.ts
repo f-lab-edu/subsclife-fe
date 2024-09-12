@@ -2,11 +2,19 @@ import styled from "styled-components";
 
 const Container = styled.header`
   display: flex;
-  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   width: 100%;
-  height: 93px;
-  padding: 0 30px;
+  padding: 0px 0px 10px 0px;
   background-color: ${({ theme }) => theme.color.green};
+
+  svg {
+    height: 53px;
+  }
 `;
 
-export { Container };
+const LogoWrapper = styled.div`
+  padding: 20px 30px;
+`;
+
+export { Container, LogoWrapper };
