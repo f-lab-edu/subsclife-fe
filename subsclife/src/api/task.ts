@@ -42,3 +42,17 @@ export const postTaskForUnsubscribeById = async (taskId: number) => {
     return err.status;
   }
 };
+
+export const postTaskForSubscribeById = async (taskId: number) => {
+  try {
+    const result = await instance.post(
+      `/api/v1/users/subscribe?task_id=${taskId}`
+    );
+
+    return result.status;
+  } catch (error) {
+    const err = error as AxiosError;
+    console.log(err);
+    return err.status;
+  }
+};
