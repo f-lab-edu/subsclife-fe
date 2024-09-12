@@ -10,8 +10,8 @@ export interface TaskType {
   title: string;
   simpleInfo?: string;
   subscriberCount: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 }
 
 interface TaskCardProps {

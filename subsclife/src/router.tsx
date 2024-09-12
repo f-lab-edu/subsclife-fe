@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import App from "./App";
 import Main from "@/pages/Main";
 import TaskDetail from "@/pages/TaskDetail";
+import Search from "@/pages/Search";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/search",
-        element: <div>조회 페이지</div>,
+        element: <Search />,
       },
       {
         path: "/task/:taskId",
