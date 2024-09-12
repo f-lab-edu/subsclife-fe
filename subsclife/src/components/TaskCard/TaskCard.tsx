@@ -3,6 +3,7 @@ import { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 import TaskCardContent from "../TaskCardContent";
+import { isActiveTask, isBeforeActiveTask } from "@/utils/date";
 import * as Icons from "@/assets/icons";
 
 export interface TaskType {
@@ -22,12 +23,11 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
   const navigate = useNavigate();
   const { taskId, title, subscriberCount, startDate, endDate } = cardData;
 
-  const start = dayjs(startDate);
   const end = dayjs(endDate);
   const now = dayjs();
 
-  const isReadyTask = now.isBefore(start) && now.isBefore(end);
-  const isStartTask = now.isAfter(start) && now.isBefore(end);
+  const isReadyTask = isBeforeActiveTask({ current: now, start: startDate });
+  const isStartTask = isActiveTask({ current: now, end: endDate });
   const isFinishedTask = now.isAfter(end);
 
   const taskCardClickHandler = () => {
@@ -64,10 +64,10 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
           endDate={endDate}
         />
       )}
-      {isStartTask && (
+      {!isReadyTask && isStartTask && (
         <TaskCardContent.Gauge startDate={startDate} endDate={endDate} />
       )}
-      {isFinishedTask && (
+      {!isStartTask && isFinishedTask && (
         <TaskCardContent.Remind
           taskId={taskId}
           startDate={startDate}
