@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { PropsWithChildren, useEffect } from "react";
+import { useEffect } from "react";
 
 import { useLayoutContext } from "@/contexts/layout/LayoutContext";
 

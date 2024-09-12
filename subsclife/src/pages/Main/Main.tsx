@@ -1,10 +1,10 @@
 import Header from "@/layouts/Header";
+import Footer from "@/layouts/Footer";
 import LogoHeader from "@/layouts/LogoHeader";
-import useTasks from "@/hooks/useTasks";
 import TaskCard from "@/components/TaskCard";
+import useTasks from "@/hooks/useTasks";
 
 import * as Styled from "./Main.styled";
-import Footer from "@/layouts/Footer";
 
 const Main = () => {
   const { activeTasks, remindTasks } = useTasks();

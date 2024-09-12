@@ -75,6 +75,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/*",
+    element: <Main />,
+    },
 ]);
 
 export default router;

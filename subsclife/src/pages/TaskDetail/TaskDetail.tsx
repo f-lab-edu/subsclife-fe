@@ -6,12 +6,13 @@ import Footer from "@/layouts/Footer";
 import NaviHeader from "@/layouts/NaviHeader";
 import useTaskDetail from "@/hooks/useTaskDetail";
 import TaskCardContent from "@/components/TaskCardContent";
+import { isActiveTask, isInRemindPeriod } from "@/utils/date";
 
 import * as Icons from "@/assets/icons";
 import * as Styled from "./TaskDetail.styled";
 
 export type UserType = {
-  userId: 0;
+  userId: number;
   name: string;
   nickname: string;
 };
@@ -30,13 +31,16 @@ export type TaskDetailType = {
 const TaskDetail = () => {
   const navigate = useNavigate();
   const { taskId: taskDetailId } = useParams() as { taskId: string };
-  const { task, isLoading, isError } = useTaskDetail(taskDetailId);
+  const { task, isLoading, isError, subscribe, unsubscribe } =
+    useTaskDetail(taskDetailId);
 
   const now = dayjs();
-  const isBeforeStart = dayjs(task?.startDate).isAfter(now);
-  const isBetweenRemindPeriod =
-    now.isAfter(dayjs(task?.endDate)) &&
-    now.isBefore(dayjs(task?.endDate).add(3, "day"));
+  const isBeforeStart = now.isBefore(dayjs(task?.startDate));
+  const isTaskStart = isActiveTask({ current: now, end: task?.endDate });
+  const isBetweenRemindPeriod = isInRemindPeriod({
+    current: now,
+    end: task?.endDate,
+  });
 
   if (isLoading) {
     return <>로딩 중</>;
@@ -66,13 +70,19 @@ const TaskDetail = () => {
           </button>
 
           {!isError && !task?.isSubscribed && isBeforeStart && (
-            <Styled.SubscribeButton $subscribed={task?.isSubscribed}>
+            <Styled.SubscribeButton
+              $subscribed={task?.isSubscribed}
+              onClick={subscribe}
+            >
               구독
             </Styled.SubscribeButton>
           )}
 
           {!isError && task?.isSubscribed && isBeforeStart && (
-            <Styled.SubscribeButton $subscribed={task?.isSubscribed}>
+            <Styled.SubscribeButton
+              $subscribed={task?.isSubscribed}
+              onClick={unsubscribe}
+            >
               구독 취소
             </Styled.SubscribeButton>
           )}
@@ -82,7 +92,14 @@ const TaskDetail = () => {
       <h1>{title}</h1>
       <p className="simple_desc">{simpleInfo}</p>
       <div className="gauge">
-        {!isBetweenRemindPeriod && (
+        {isBeforeStart && (
+          <TaskCardContent.NotStart
+            taskId={taskId}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        )}
+        {!isBeforeStart && isTaskStart && (
           <TaskCardContent.Gauge
             startDate={startDate}
             endDate={endDate}
@@ -90,7 +107,7 @@ const TaskDetail = () => {
           />
         )}
 
-        {isBetweenRemindPeriod && (
+        {!isTaskStart && isBetweenRemindPeriod && (
           <TaskCardContent.Remind
             taskId={taskId}
             startDate={startDate}

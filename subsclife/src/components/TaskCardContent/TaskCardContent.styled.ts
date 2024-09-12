@@ -93,6 +93,18 @@ const Date = styled.div<RuleSetCSSType>`
   `}
 `;
 
+const NotStart = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 32px;
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.color["green-6"]};
+  color: ${({ theme }) => theme.color.black};
+  font-weight: bold;
+`;
+
 const Gauge = styled.div<{
   $percent: number;
   $gaugecolor?: "white" | "yellow";
@@ -208,6 +220,7 @@ export {
   Title,
   SimpleInfo,
   Date,
+  NotStart,
   Gauge,
   ReadyToRemind,
   ToggleButton,
