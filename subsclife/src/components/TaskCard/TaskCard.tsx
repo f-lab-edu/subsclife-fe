@@ -3,6 +3,7 @@ import { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 import TaskCardContent from "../TaskCardContent";
+import { isActiveTask, isBeforeActiveTask } from "@/utils/date";
 import * as Icons from "@/assets/icons";
 
 export interface TaskType {
@@ -22,13 +23,12 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
   const navigate = useNavigate();
   const { taskId, title, subscriberCount, startDate, endDate } = cardData;
 
-  const start = dayjs(startDate);
   const end = dayjs(endDate);
-  const current = dayjs();
+  const now = dayjs();
 
-  const isReadyTask = current.isBefore(start);
-  const isStartTask = current.isAfter(start) && current.isBefore(end);
-  const isFinishedTask = current.isAfter(end);
+  const isReadyTask = isBeforeActiveTask({ current: now, start: startDate });
+  const isStartTask = isActiveTask({ current: now, end: endDate });
+  const isFinishedTask = now.isAfter(end);
 
   const taskCardClickHandler = () => {
     console.log("click TaskCardContent");
@@ -56,22 +56,22 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
 
       {isReadyTask && (
         <TaskCardContent.Date
+          css={css`
+            margin-bottom: 10px;
+          `}
           taskId={taskId}
           startDate={startDate}
           endDate={endDate}
         />
       )}
-      {isStartTask && (
-        <TaskCardContent.Gauge
-          startDate={startDate.toString()}
-          endDate={endDate.toString()}
-        />
+      {!isReadyTask && isStartTask && (
+        <TaskCardContent.Gauge startDate={startDate} endDate={endDate} />
       )}
-      {isFinishedTask && (
+      {!isStartTask && isFinishedTask && (
         <TaskCardContent.Remind
           taskId={taskId}
-          startDate={startDate.toString()}
-          endDate={endDate.toString()}
+          startDate={startDate}
+          endDate={endDate}
         />
       )}
     </TaskCardContent>
