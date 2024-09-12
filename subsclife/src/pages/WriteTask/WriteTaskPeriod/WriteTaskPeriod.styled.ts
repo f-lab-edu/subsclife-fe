@@ -42,4 +42,17 @@ const TextareaWrapper = styled.div`
   }
 `;
 
-export { Title, SubTitle, TextareaWrapper };
+const CalendarButton = styled.button`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: ${({ theme }) => theme.color.white};
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.color.black};
+`;
+
+export { Title, SubTitle, TextareaWrapper, CalendarButton };

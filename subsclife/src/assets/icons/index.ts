@@ -10,3 +10,4 @@ export { default as AvatarCircleIcon } from "./avatar-circle.svg?react";
 export { default as ChevronDownIcon } from "./chevron_down.svg?react";
 export { default as ChevronUpIcon } from "./chevron_up.svg?react";
 export { default as ChevronLeftIcon } from "./chevron_left.svg?react";
+export { default as CloseCircleIcon } from "./close-circle.svg?react";

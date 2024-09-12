@@ -2,6 +2,7 @@ import { PropsWithChildren } from "react";
 import styled from "styled-components";
 
 import { useLayoutContext } from "./contexts/layout/LayoutContext";
+import globalStore from "./store/global";
 
 //* styled-components theme 사용 예시
 const Container = styled.div`
@@ -23,6 +24,7 @@ const Main = styled.main`
 `;
 
 const App = ({ children }: PropsWithChildren) => {
+  const { modal: Modal } = globalStore();
   const { header: Header, footer: Footer } = useLayoutContext();
 
   return (
@@ -30,6 +32,7 @@ const App = ({ children }: PropsWithChildren) => {
       {Header}
       <Main>{children}</Main>
       {Footer}
+      <Modal />
     </Container>
   );
 };

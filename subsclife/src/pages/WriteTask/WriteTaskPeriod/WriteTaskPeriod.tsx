@@ -1,40 +1,56 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 
 import Layout from "@/layouts/Layout";
 import Header from "@/layouts/Header";
 import NaviHeader from "@/layouts/NaviHeader";
+import Modal from "@/components/Modal";
+import globalStore from "@/store/global";
 import { WriteTaskPageType } from "../WriteTask";
 
 import * as Icons from "@/assets/icons";
 import * as Styled from "./WriteTaskPeriod.styled";
 
 const WriteTaskPeriod = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
-  const [simpleInfo, setSimpleInfo] = useState<string>(task.simpleInfo || "");
-  const [detail, setDetail] = useState<string>(task.detail || "");
+  const { toggleModal, changeModal } = globalStore();
+  const [startDate, setStartDate] = useState<string>(task.startDate || "");
+  const [endDate, setEndDate] = useState<string>(task.endDate || "");
 
   const nextTask = {
-    simpleInfo,
-    detail,
+    startDate,
+    endDate,
   };
 
   const prevHandler = () => movePrev(nextTask);
   const nextHandler = () => moveNext(nextTask);
 
-  const changeSimpleInfoHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
-    setSimpleInfo(value);
+  const closeModal = () => {
+    toggleModal(false);
+    changeModal(() => <></>);
   };
 
-  const changeDetailHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
-    setDetail(value);
+  const openStartCalendar = () => {
+    changeModal(() => (
+      <Modal>
+        <A />
+      </Modal>
+    ));
+    toggleModal(true);
+  };
+
+  const openEndCalender = () => {
+    changeModal(() => (
+      <Modal>
+        <B />
+      </Modal>
+    ));
+    toggleModal(true);
   };
 
   return (
     <>
       <Header>
         <NaviHeader>
-          <button onClick={() => movePrev("메롱롱롱")}>
+          <button onClick={prevHandler}>
             <Icons.ChevronLeftIcon />
             <p>이전</p>
           </button>
@@ -42,11 +58,19 @@ const WriteTaskPeriod = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
       </Header>
       <Layout.Content>
         <Styled.Title>
-          어떤 활동을
-          <br /> 목표로 해 기간
+          시작 기간과 종료 기간을
+          <br /> 정해볼까요?
         </Styled.Title>
-        <Styled.SubTitle>목표 활동을 적어주세요.</Styled.SubTitle>
-        <input type="date" />
+
+        <Styled.SubTitle>시작 기간</Styled.SubTitle>
+        <Styled.CalendarButton onClick={openStartCalendar}>
+          {startDate || "시작 기간 선택"}
+        </Styled.CalendarButton>
+
+        <Styled.SubTitle>종료 기간</Styled.SubTitle>
+        <Styled.CalendarButton onClick={openEndCalender}>
+          {endDate || "종료 기간 선택"}
+        </Styled.CalendarButton>
       </Layout.Content>
       <Layout.Bottom>
         <button onClick={() => moveNext("메롱롱롱")}>완료</button>
