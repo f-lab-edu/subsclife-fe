@@ -1,9 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useMemo, useState } from "react";
-
-import WriteTaskGoal from "./WriteTaskGoal";
-import WriteTaskDetail from "./WriteTaskDetail";
-import WriteTaskPeriod from "./WriteTaskPeriod";
+import useWriteTaskPage from "./hooks/useWriteTaskPage";
 
 import * as Styled from "./WriteTask.styled";
 
@@ -22,58 +17,16 @@ export type WriteTaskPageType = {
 };
 
 const WriteTask = () => {
-  const navigate = useNavigate();
-  const { search } = useLocation();
-  const page = Number(new URLSearchParams(search).get("page"));
-  const [task, setTask] = useState<TaskForWritingType>({
-    title: "",
-    simpleInfo: "",
-    detail: "",
-    startDate: "",
-    endDate: "",
-  });
-
-  const movePrevPage = (newTask: TaskForWritingType) => {
-    const page = Number(new URLSearchParams(search).get("page"));
-
-    if (page === 0) {
-      navigate("/", { replace: true, preventScrollReset: true });
-    } else {
-      navigate(`/task?page=${page - 1}`, { state: newTask });
-    }
-    console.log(newTask);
-    setTask((prev) => ({ ...prev, ...newTask }));
-  };
-
-  const moveNextPage = (newTask: TaskForWritingType) => {
-    const page = Number(new URLSearchParams(search).get("page"));
-    navigate(`/task?page=${page + 1}`, { state: newTask });
-    console.log(newTask);
-    setTask((prev) => ({ ...prev, ...newTask }));
-  };
-
-  const PageComponents = [
-    { Page: WriteTaskGoal, prev: movePrevPage, next: moveNextPage },
-    { Page: WriteTaskDetail, prev: movePrevPage, next: moveNextPage },
-    {
-      Page: WriteTaskPeriod,
-      prev: movePrevPage,
-      next: moveNextPage,
-    },
-  ];
-
-  const Current = useMemo(() => PageComponents, [page])[page];
+  const { pages: Pages, task } = useWriteTaskPage();
 
   return (
-    <>
-      <Styled.Main>
-        <Current.Page
-          task={task}
-          movePrev={(task) => Current.prev(task)}
-          moveNext={(task) => Current.next(task)}
-        />
-      </Styled.Main>
-    </>
+    <Styled.Main>
+      <Pages.Page
+        task={task}
+        movePrev={(task) => Pages.prev(task)}
+        moveNext={(task) => Pages.next(task)}
+      />
+    </Styled.Main>
   );
 };
 

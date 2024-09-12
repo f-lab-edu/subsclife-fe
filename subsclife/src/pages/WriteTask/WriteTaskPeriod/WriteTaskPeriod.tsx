@@ -1,19 +1,20 @@
-import { useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
 
 import Layout from "@/layouts/Layout";
 import Header from "@/layouts/Header";
 import NaviHeader from "@/layouts/NaviHeader";
-import Modal from "@/components/Modal";
-import globalStore from "@/store/global";
+import useWriteTaskCalendar from "../hooks/useWriteTaskCalendar";
 import { WriteTaskPageType } from "../WriteTask";
 
 import * as Icons from "@/assets/icons";
 import * as Styled from "./WriteTaskPeriod.styled";
 
+const dateFormatter = (date: string | Date | Dayjs) =>
+  dayjs(date).format("YYYY년 M월 D일 H시");
+
 const WriteTaskPeriod = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
-  const { toggleModal, changeModal } = globalStore();
-  const [startDate, setStartDate] = useState<string>(task.startDate || "");
-  const [endDate, setEndDate] = useState<string>(task.endDate || "");
+  const { startDate, endDate, openStartCalendar, openEndCalender } =
+    useWriteTaskCalendar(task);
 
   const nextTask = {
     startDate,
@@ -22,29 +23,6 @@ const WriteTaskPeriod = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
 
   const prevHandler = () => movePrev(nextTask);
   const nextHandler = () => moveNext(nextTask);
-
-  const closeModal = () => {
-    toggleModal(false);
-    changeModal(() => <></>);
-  };
-
-  const openStartCalendar = () => {
-    changeModal(() => (
-      <Modal>
-        <A />
-      </Modal>
-    ));
-    toggleModal(true);
-  };
-
-  const openEndCalender = () => {
-    changeModal(() => (
-      <Modal>
-        <B />
-      </Modal>
-    ));
-    toggleModal(true);
-  };
 
   return (
     <>
@@ -64,16 +42,18 @@ const WriteTaskPeriod = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
 
         <Styled.SubTitle>시작 기간</Styled.SubTitle>
         <Styled.CalendarButton onClick={openStartCalendar}>
-          {startDate || "시작 기간 선택"}
+          {startDate ? dateFormatter(startDate) : "시작 기간 선택"}
         </Styled.CalendarButton>
 
         <Styled.SubTitle>종료 기간</Styled.SubTitle>
         <Styled.CalendarButton onClick={openEndCalender}>
-          {endDate || "종료 기간 선택"}
+          {endDate ? dateFormatter(endDate) : "종료 기간 선택"}
         </Styled.CalendarButton>
       </Layout.Content>
       <Layout.Bottom>
-        <button onClick={() => moveNext("메롱롱롱")}>완료</button>
+        <button disabled={!startDate && !endDate} onClick={nextHandler}>
+          완료
+        </button>
       </Layout.Bottom>
     </>
   );

@@ -11,12 +11,14 @@ import * as Styled from "./WriteTaskGoal.styled";
 const WriteTaskGoal = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
   const [title, setTitle] = useState<string>(task.title || "");
 
-  const nextTask = {
-    title,
-  };
-
-  const prevHandler = () => movePrev(nextTask);
-  const nextHandler = () => moveNext(nextTask);
+  const prevHandler = () =>
+    movePrev({
+      title,
+    });
+  const nextHandler = () =>
+    moveNext({
+      title,
+    });
 
   const changeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
