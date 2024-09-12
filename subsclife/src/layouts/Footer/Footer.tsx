@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useLayoutContext } from "@/contexts/layout/LayoutContext";
 
@@ -25,7 +25,14 @@ const FooterIcons = [
 ];
 
 const FooterContent = () => {
+  const { changeFooter } = useLayoutContext();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const moveToCreateTask = () => {
+    changeFooter(<></>);
+    navigate("/task?page=0");
+  };
 
   return (
     <Styled.Container>
@@ -34,6 +41,9 @@ const FooterContent = () => {
           <Link to={url}>{pathname === url ? ActiveIcon : Icon}</Link>
         </Styled.NaviButton>
       ))}
+      <Styled.AddTask onClick={moveToCreateTask}>
+        <Icons.PlusIcon />
+      </Styled.AddTask>
     </Styled.Container>
   );
 };
