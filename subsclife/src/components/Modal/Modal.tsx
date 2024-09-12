@@ -6,12 +6,17 @@ import * as Icons from "@/assets/icons";
 import * as Styled from "./Modal.styled";
 
 const Modal = ({ children }: PropsWithChildren) => {
-  const { isModalOpen, toggleModal } = globalStore();
+  const { isModalOpen, changeModal, toggleModal } = globalStore();
 
   return (
     isModalOpen && (
       <Styled.Container>
-        <Icons.CloseCircleIcon onClick={() => toggleModal(false)} />
+        <Icons.CloseCircleIcon
+          onClick={() => {
+            toggleModal(false);
+            changeModal(() => <></>);
+          }}
+        />
         {children}
       </Styled.Container>
     )
