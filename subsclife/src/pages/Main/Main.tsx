@@ -1,24 +1,19 @@
-import { useEffect } from "react";
-
-import Footer from "@/layouts/Footer";
+import Header from "@/layouts/Header";
 import LogoHeader from "@/layouts/LogoHeader";
-import { useLayoutContext } from "@/contexts/layout/LayoutContext";
 import useTasks from "@/hooks/useTasks";
 import TaskCard from "@/components/TaskCard";
 
 import * as Styled from "./Main.styled";
+import Footer from "@/layouts/Footer";
 
 const Main = () => {
-  const { changeHeader, changeFooter } = useLayoutContext();
   const { activeTasks, remindTasks } = useTasks();
-
-  useEffect(() => {
-    changeHeader(<LogoHeader />);
-    changeFooter(<Footer />);
-  }, []);
 
   return (
     <Styled.Container>
+      <Header>
+        <LogoHeader />
+      </Header>
       <h1>작성할 회고</h1>
 
       <div className="task-box">
@@ -39,6 +34,7 @@ const Main = () => {
           <TaskCard key={card.taskId} cardData={card} />
         ))}
       </div>
+      <Footer />
     </Styled.Container>
   );
 };
