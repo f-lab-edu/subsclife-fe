@@ -13,3 +13,5 @@ export { default as ChevronLeftIcon } from "./chevron_left.svg?react";
 export { default as GoogleIcon } from "./google.svg?react";
 export { default as NaverIcon } from "./naver.svg?react";
 export { default as KakaotalkIcon } from "./kakaotalk.svg?react";
+export { default as CloseCircleIcon } from "./close-circle.svg?react";
+export { default as PlusIcon } from "./plus.svg?react";

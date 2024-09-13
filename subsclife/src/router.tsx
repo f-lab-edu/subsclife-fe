@@ -2,8 +2,10 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 
 import App from "./App";
 import Main from "@/pages/Main";
+
 import TaskDetail from "@/pages/TaskDetail";
 import Login from "@/pages/Login";
+import WriteTask from "@/pages/WriteTask";
 
 const router = createBrowserRouter([
   {
@@ -16,25 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/task",
-        element: (
-          <div>
-            <Outlet />
-          </div>
-        ),
-        children: [
-          {
-            path: "goal",
-            element: <div>목표 설정</div>,
-          },
-          {
-            path: "desc",
-            element: <div>부가 설명</div>,
-          },
-          {
-            path: "time",
-            element: <div>기간 설정</div>,
-          },
-        ],
+        element: <WriteTask />,
       },
       {
         path: "/",

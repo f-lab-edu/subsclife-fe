@@ -1,9 +1,15 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 
-import * as Styled from "./Header.styled";
+import { useLayoutContext } from "@/contexts/layout/LayoutContext";
 
 const Header = ({ children }: PropsWithChildren) => {
-  return <Styled.Container>{children}</Styled.Container>;
+  const { changeHeader } = useLayoutContext();
+
+  useEffect(() => {
+    changeHeader(children);
+  }, [children]);
+
+  return <></>;
 };
 
 export default Header;
