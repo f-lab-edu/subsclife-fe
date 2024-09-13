@@ -14,8 +14,10 @@ const SubTitle = styled.p`
   font-size: 14px;
   color: ${({ theme }) => theme.color.black};
 `;
+
 const TextareaWrapper = styled.div`
   width: 100%;
+  margin-bottom: 70px;
   padding: 15px;
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 10px;
@@ -42,4 +44,14 @@ const TextareaWrapper = styled.div`
   }
 `;
 
-export { Title, SubTitle, TextareaWrapper };
+const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 300px;
+  }
+`;
+
+export { Title, SubTitle, TextareaWrapper, ImageWrapper };

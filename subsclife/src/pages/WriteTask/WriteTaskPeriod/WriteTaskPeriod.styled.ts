@@ -55,4 +55,15 @@ const CalendarButton = styled.button`
   color: ${({ theme }) => theme.color.black};
 `;
 
-export { Title, SubTitle, TextareaWrapper, CalendarButton };
+const ImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+
+  img {
+    width: 180px;
+  }
+`;
+
+export { Title, SubTitle, TextareaWrapper, CalendarButton, ImageWrapper };

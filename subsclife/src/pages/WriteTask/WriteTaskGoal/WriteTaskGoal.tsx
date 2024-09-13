@@ -7,6 +7,7 @@ import { WriteTaskPageType } from "../WriteTask";
 
 import * as Icons from "@/assets/icons";
 import * as Styled from "./WriteTaskGoal.styled";
+import GoalImg from "@/assets/imgs/goal.png";
 
 const WriteTaskGoal = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
   const [title, setTitle] = useState<string>(task.title || "");
@@ -47,6 +48,9 @@ const WriteTaskGoal = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
             <em>{title.length}</em> / 30
           </p>
         </Styled.TextareaWrapper>
+        <Styled.ImageWrapper>
+          <img src={GoalImg} alt='coffee_img' />
+        </Styled.ImageWrapper>
       </Layout.Content>
       <Layout.Bottom>
         <button disabled={!title.length} onClick={nextHandler}>
