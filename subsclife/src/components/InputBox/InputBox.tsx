@@ -1,28 +1,29 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 interface InputBoxProps {
   maxLength: number;
+  question: string; 
 }
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start; 
   width: 100%;
   max-width: 390px;
-  background-color: ${({ theme }) => theme.color["gray-3"]}; /* 배경을 회색으로 설정 */
-  padding: 20px; /* 추가된 패딩으로 텍스트 영역과 외부 간격 추가 */
-  border-radius: 10px; /* 배경 테두리 모양 둥글게 설정 */
+  padding: 20px;
+  border-radius: 10px;
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
   height: 150px;
+  margin-top: 5px;
   padding: 10px;
   box-sizing: border-box;
   font-size: 16px;
-  border: 2px solid #ccc;
+  border: 2px solid ${({ theme }) => theme.color["gray-1"]};
   border-radius: 10px;
   resize: none;
   overflow-y: auto;
@@ -31,9 +32,10 @@ const TextArea = styled.textarea`
 const CharCount = styled.div`
   font-size: 14px;
   color: ${({ theme }) => theme.color["gray-1"]};
+  align-self: flex-end;
 `;
 
-const InputBox: React.FC<InputBoxProps> = ({ maxLength }) => {
+const InputBox: React.FC<InputBoxProps> = ({ maxLength, question }) => {
   const [text, setText] = useState<string>("");
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,6 +46,7 @@ const InputBox: React.FC<InputBoxProps> = ({ maxLength }) => {
 
   return (
     <InputContainer>
+      <p>{question}</p>
       <TextArea
         value={text}
         onChange={handleTextChange}

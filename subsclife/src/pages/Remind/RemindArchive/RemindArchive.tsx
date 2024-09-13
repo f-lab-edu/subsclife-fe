@@ -5,18 +5,17 @@ import { RemindContainer, BackButton } from "../Remind.styled";
 import NextButton from "@/components/NextButton/NextButton";
 import SliderComponent from "./SliderComponent";
 import styled from "styled-components";
-import ArchiveImage from "@/assets/archive.svg"; // 이미지 불러오기
+import ArchiveImage from "@/assets/archive.svg?url"; // 이미지 불러오기
 
 const remindId = 1;
 
 // 이미지 스타일
 const ImageContainer = styled.img`
-  width: 150px;
-  height: auto;
+  width: 238px;
+  height: 211px;
   display: block; 
-  margin: 20px auto 0;
+  margin: 0 auto 0;
 `;
-
 const RemindAchieve: React.FC = () => {
   const navigate = useNavigate();
   return (

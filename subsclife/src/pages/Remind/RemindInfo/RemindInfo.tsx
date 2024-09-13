@@ -9,15 +9,14 @@ import UserList from "./UserList";
 const remindId = 1;
 const RemindInfo: React.FC = () => {
   const navigate = useNavigate();
-  const taskName = "태스크 1";
-  const userCount = 4;
-  const userList = ["user1", "user2", "user3", "user4"];
+  const taskName = "해커톤 개발 마무리";
+  const userList = ["권혁빈", "김현성", "진성진", "고청천"];
   return (
     <RemindContainer>
       <BackButton onClick={() => navigate(-1)}>{"< 이전"}</BackButton>
       <br />
       <TextBox textName={taskName}/>
-      <NumberInfo number={userCount} />
+      <NumberInfo number={userList.length} />
       <UserList userNames={userList}/>
       <Outlet />
       <NextButton mode="next" nextPage={`/remind/${remindId}/archive`} />

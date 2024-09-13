@@ -1,11 +1,21 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
+
 import App from "./App";
+
 import Remind from "./pages/Remind/Remind";
 import RemindInfo from "./pages/Remind/RemindInfo/RemindInfo";
 import RemindAchieve from "./pages/Remind/RemindArchive/RemindArchive";
 import RemindPros from "./pages/Remind/RemindPros/RemindPros";
 import RemindCons from "./pages/Remind/RemindCons/RemindCons";
 import RemindImprove from "./pages/Remind/RemindImprove/RemindImprove";
+import Main from "@/pages/Main";
+import TaskDetail from "@/pages/TaskDetail";
+import Search from "@/pages/Search";
+import Login from "@/pages/Login";
+import WriteTask from "@/pages/WriteTask";
+import Introduction from "@/pages/Introduction";
+import ProtectGuard from "./components/ProtectGuard";
+
 
 const router = createBrowserRouter([
   {
@@ -19,36 +29,30 @@ const router = createBrowserRouter([
       {
         path: "/task",
         element: (
-          <div>
-            <Outlet />
-          </div>
+          <ProtectGuard>
+            <WriteTask />
+          </ProtectGuard>
         ),
-        children: [
-          {
-            path: "goal",
-            element: <div>목표 설정</div>,
-          },
-          {
-            path: "desc",
-            element: <div>부가 설명</div>,
-          },
-          {
-            path: "time",
-            element: <div>기간 설정</div>,
-          },
-        ],
       },
       {
         path: "/",
-        element: <div>메인 페이지</div>,
+        element: (
+          <ProtectGuard>
+            <Main />
+          </ProtectGuard>
+        ),
       },
       {
         path: "/search",
-        element: <div>조회 페이지</div>,
+        element: <Search />,
       },
       {
         path: "/task/:taskId",
-        element: <div>태스크 상세 페이지</div>,
+        element: (
+          <ProtectGuard>
+            <TaskDetail />
+          </ProtectGuard>
+        ),
       },
       {
         path: "/history",
@@ -86,9 +90,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <div>로그인 페이지</div>,
+        element: <Login />,
+      },
+      {
+        path: "/introduction",
+        element: <Introduction />,
       },
     ],
+  },
+  {
+    path: "/*",
+    element: <Navigate to="/" replace />,
   },
 ]);
 

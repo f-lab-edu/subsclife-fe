@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import UserIcon from "assets/user-icon.svg"
+import UserIcon from "assets/user-icon.svg?url"
 interface UserListProps {
   userNames: string[];
 }
