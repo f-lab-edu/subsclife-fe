@@ -8,7 +8,6 @@ import { Dayjs } from "dayjs";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-
 const StyledSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,10 +15,15 @@ const StyledSection = styled.div`
 
   p {
     margin: 4px 0 10px 0;
-    line-height: 1.5; 
+    line-height: 1.5;
+  }
+
+  .subtitle_divider {
+    margin-bottom: 20px;
   }
 
   .sectionTitle {
+    font-size: 14px;
     color: ${({ theme }) => theme.color["green-1"]};
     font-weight: bold;
   }
@@ -31,8 +35,8 @@ const StyledSection = styled.div`
 
 const ProgressBarContainer = styled.div`
   display: flex;
-  flex-direction: column; 
-  margin: 15px 0;
+  flex-direction: column;
+  margin: 5px 0 20px 0;
 `;
 
 const ProgressBarBackground = styled.div`
@@ -65,6 +69,7 @@ const ProgressBarText = styled.div`
 `;
 
 const ProgressLabel = styled.div`
+  color: ${({ theme }) => theme.color.green};
   font-size: 14px;
   font-weight: bold;
 `;
@@ -101,12 +106,27 @@ const RemindCard: React.FC<RemindProbs> = ({
       <Header>
         <LogoHeader />
       </Header>
-      <TaskCardContent icon={<Icons.UpRightArrowIcon />} type="green" onClick={handleClick}>
-        <TaskCardContent.Subscriber prefix={<Icons.AvatarCircleIcon />} children={subscriberCount} />
-        <TaskCardContent.Title>{title}</TaskCardContent.Title>
+      <TaskCardContent
+        icon={<Icons.UpRightArrowIcon />}
+        type="green"
+        onClick={handleClick}
+      >
+        <TaskCardContent.Subscriber
+          prefix={<Icons.AvatarCircleIcon />}
+          children={subscriberCount}
+        />
+        <TaskCardContent.Title
+          css={css`
+            margin-bottom: 10px;
+          `}
+        >
+          {title}
+        </TaskCardContent.Title>
         <TaskCardContent.Date
           taskId={taskId}
-          css={css`margin-bottom: 15px`}
+          css={css`
+            margin-bottom: 30px;
+          `}
           startDate={startDate}
           endDate={endDate}
         />
@@ -116,20 +136,24 @@ const RemindCard: React.FC<RemindProbs> = ({
             <ProgressLabel>달성률</ProgressLabel>
             <ProgressBarContainer>
               <ProgressBarBackground>
-                <ProgressBarFill width={achievementRate}>
-                </ProgressBarFill>
+                <ProgressBarFill width={achievementRate}></ProgressBarFill>
                 <ProgressBarText>{achievementRate}%</ProgressBarText>
               </ProgressBarBackground>
             </ProgressBarContainer>
 
-            <div className="sectionTitle">달성 이유</div>
-            <p className="reasonContent">{achieveReason}</p>
-            
-            <div className="sectionTitle">미달성 이유</div>
-            <p className="reasonContent">{failReason}</p>
+            <div className="subtitle_divider">
+              <div className="sectionTitle">달성 이유</div>
+              <p className="reasonContent">{achieveReason}</p>
+            </div>
 
-            <div className="sectionTitle">개선점</div>
-            <p className="reasonContent">{improvementPlan}</p>
+            <div className="subtitle_divider">
+              <div className="sectionTitle">미달성 이유</div>
+              <p className="reasonContent">{failReason}</p>
+            </div>
+            <div className="subtitle_divider">
+              <div className="sectionTitle">개선점</div>
+              <p className="reasonContent">{improvementPlan}</p>
+            </div>
           </StyledSection>
         </TaskCardContent.Toggle>
       </TaskCardContent>

@@ -79,6 +79,7 @@ type TaskCardContentDateType = {
   taskId: number;
   startDate: string | Date | Dayjs;
   endDate: string | Date | Dayjs;
+  flag?: boolean;
 };
 
 const TaskCardContentDate = ({
