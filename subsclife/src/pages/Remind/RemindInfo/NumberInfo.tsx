@@ -8,16 +8,11 @@ interface NumberInfoProps {
 const NumberContainer = styled.div`
   text-align: left;
   font-size: 14px;
-  margin: 10px 0 0 25px;
   color: ${({ theme }) => theme.color.black};
 `;
 
 const NumberInfo: React.FC<NumberInfoProps> = ({ number }) => {
-  return (
-    <NumberContainer>
-      {number}명이 함께 하고 있어요!
-    </NumberContainer>
-  );
+  return <NumberContainer>{number}명이 함께 하고 있어요!</NumberContainer>;
 };
 
 export default NumberInfo;

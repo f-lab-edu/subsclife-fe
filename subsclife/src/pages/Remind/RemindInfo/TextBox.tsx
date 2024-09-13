@@ -5,11 +5,10 @@ interface TextBoxProps {
   textName: string;
 }
 
-
 const TextBox: React.FC<TextBoxProps> = ({ textName }) => {
   return (
     <TextContainer>
-      {textName} 
+      {textName}
       <br />
       회고를 작성해볼까요?
     </TextContainer>

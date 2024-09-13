@@ -1,42 +1,69 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { forwardRef, Ref, useState } from "react";
+import styled from "styled-components";
 
 interface InputBoxProps {
   maxLength: number;
-  question: string; 
+  question: string;
+  value: string;
 }
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: flex-start;
   width: 100%;
-  max-width: 390px;
-  padding: 20px;
-  border-radius: 10px;
+  margin-bottom: 60px;
+
+  background-color: none;
+  color: ${({ theme }) => theme.color.black};
+
+  p {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  div {
+    width: 100%;
+    height: 270px;
+    margin-top: 5px;
+    padding: 15px 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+
+    border-radius: 10px;
+    overflow-y: auto;
+    background-color: ${({ theme }) => theme.color.white};
+  }
 `;
 
 const TextArea = styled.textarea`
   width: 100%;
-  height: 150px;
-  margin-top: 5px;
-  padding: 10px;
-  box-sizing: border-box;
-  font-size: 16px;
-  border: 2px solid ${({ theme }) => theme.color["gray-1"]};
-  border-radius: 10px;
+  height: calc(100% - 44px);
+  background-color: transparent;
+  border: none;
   resize: none;
-  overflow-y: auto;
+  outline: none;
+  font-size: 18px;
+  line-height: 24px;
+  white-space: pre-wrap;
 `;
 
-const CharCount = styled.div`
+const CharCount = styled.p`
   font-size: 14px;
   color: ${({ theme }) => theme.color["gray-1"]};
-  align-self: flex-end;
+  text-align: right;
+  padding: 15px 10px;
+
+  em {
+    font-weight: bold;
+  }
 `;
 
-const InputBox: React.FC<InputBoxProps> = ({ maxLength, question }) => {
-  const [text, setText] = useState<string>("");
+const InputBox = (
+  { maxLength, question, value }: InputBoxProps,
+  ref: Ref<HTMLTextAreaElement>
+) => {
+  const [text, setText] = useState<string>(value);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length <= maxLength) {
@@ -47,16 +74,19 @@ const InputBox: React.FC<InputBoxProps> = ({ maxLength, question }) => {
   return (
     <InputContainer>
       <p>{question}</p>
-      <TextArea
-        value={text}
-        onChange={handleTextChange}
-        maxLength={maxLength}
-      />
-      <CharCount>
-        {text.length} / {maxLength}
-      </CharCount>
+      <div>
+        <TextArea
+          ref={ref}
+          value={text}
+          onChange={handleTextChange}
+          maxLength={maxLength}
+        />
+        <CharCount>
+          <em>{text.length}</em> / {maxLength}
+        </CharCount>
+      </div>
     </InputContainer>
   );
 };
 
-export default InputBox;
+export default forwardRef(InputBox);
