@@ -5,7 +5,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const randomUserId = Math.floor(Math.random() * 10);
+  // const randomUserId = Math.floor(Math.random() * 10);
   config.headers["user-id"] = 1;
   // console.log(randomUserId, config);
 

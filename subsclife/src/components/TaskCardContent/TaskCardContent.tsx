@@ -14,8 +14,8 @@ import useTaskMinuteGuage from "./hooks/useTaskMinuteTimer";
 import { isBeforeActiveTask } from "@/utils/date";
 import { postTaskForSubscribeById } from "@/api/task";
 
-import * as Styled from "./TaskCardContent.styled";
 import * as Icons from "@/assets/icons";
+import * as Styled from "./TaskCardContent.styled";
 
 interface CSSComponentType {
   children?: ReactNode;

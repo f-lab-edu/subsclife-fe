@@ -1,12 +1,11 @@
 import dayjs from "dayjs";
-import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+import Header from "@/layouts/Header";
 import Footer from "@/layouts/Footer";
 import NaviHeader from "@/layouts/NaviHeader";
 import useTaskDetail from "@/hooks/useTaskDetail";
 import TaskCardContent from "@/components/TaskCardContent";
-import { useLayoutContext } from "@/contexts/layout/LayoutContext";
 import { isActiveTask, isInRemindPeriod } from "@/utils/date";
 
 import * as Icons from "@/assets/icons";
@@ -31,7 +30,6 @@ export type TaskDetailType = {
 
 const TaskDetail = () => {
   const navigate = useNavigate();
-  const { changeHeader, changeFooter } = useLayoutContext();
   const { taskId: taskDetailId } = useParams() as { taskId: string };
   const { task, isLoading, isError, subscribe, unsubscribe } =
     useTaskDetail(taskDetailId);
@@ -43,36 +41,6 @@ const TaskDetail = () => {
     current: now,
     end: task?.endDate,
   });
-
-  useEffect(() => {
-    changeHeader(
-      <NaviHeader>
-        <button onClick={() => navigate(-1)}>
-          <Icons.ChevronLeftIcon />
-          <p>이전</p>
-        </button>
-
-        {!isError && !task?.isSubscribed && isTaskStart && (
-          <Styled.SubscribeButton
-            $subscribed={task?.isSubscribed}
-            onClick={subscribe}
-          >
-            구독
-          </Styled.SubscribeButton>
-        )}
-
-        {!isError && task?.isSubscribed && isTaskStart && (
-          <Styled.SubscribeButton
-            $subscribed={task?.isSubscribed}
-            onClick={unsubscribe}
-          >
-            구독 취소
-          </Styled.SubscribeButton>
-        )}
-      </NaviHeader>
-    );
-    changeFooter(<Footer />);
-  }, [isTaskStart, task]);
 
   if (isLoading) {
     return <>로딩 중</>;
@@ -94,6 +62,33 @@ const TaskDetail = () => {
 
   return (
     <Styled.Container>
+      <Header>
+        <NaviHeader>
+          <button onClick={() => navigate(-1)}>
+            <Icons.ChevronLeftIcon />
+            <p>이전</p>
+          </button>
+
+          {!isError && !task?.isSubscribed && isBeforeStart && (
+            <Styled.SubscribeButton
+              $subscribed={task?.isSubscribed}
+              onClick={subscribe}
+            >
+              구독
+            </Styled.SubscribeButton>
+          )}
+
+          {!isError && task?.isSubscribed && isBeforeStart && (
+            <Styled.SubscribeButton
+              $subscribed={task?.isSubscribed}
+              onClick={unsubscribe}
+            >
+              구독 취소
+            </Styled.SubscribeButton>
+          )}
+        </NaviHeader>
+      </Header>
+
       <h1>{title}</h1>
       <p className="simple_desc">{simpleInfo}</p>
       <div className="gauge">
@@ -143,6 +138,7 @@ const TaskDetail = () => {
           </div>
         ))}
       </div>
+      <Footer />
     </Styled.Container>
   );
 };

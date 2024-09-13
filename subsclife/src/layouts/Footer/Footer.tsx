@@ -1,4 +1,7 @@
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import { useLayoutContext } from "@/contexts/layout/LayoutContext";
 
 import * as Icons from "@/assets/icons";
 import * as Styled from "./Footer.styled";
@@ -10,9 +13,16 @@ const PATH = {
   HISTORY: "/history",
 };
 
-const Footer = () => {
-  const { changeScrollHeight, setTasks } = SearchTaskStore();
+const FooterContent = () => {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { changeFooter } = useLayoutContext();
+  const { changeScrollHeight, setTasks } = SearchTaskStore();
+
+  const moveToCreateTask = () => {
+    changeFooter(<></>);
+    navigate("/task?page=0");
+  };
 
   const clearScrollHeight = () => {
     changeScrollHeight(0);
@@ -42,8 +52,21 @@ const Footer = () => {
           <Icons.DocsIcon />
         )}
       </Styled.NaviButton>
+      <Styled.AddTask onClick={moveToCreateTask}>
+        <Icons.PlusIcon />
+      </Styled.AddTask>
     </Styled.Container>
   );
+};
+
+const Footer = () => {
+  const { changeFooter } = useLayoutContext();
+
+  useEffect(() => {
+    changeFooter(<FooterContent />);
+  }, []);
+
+  return <></>;
 };
 
 export default Footer;
