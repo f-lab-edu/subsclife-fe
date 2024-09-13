@@ -5,9 +5,12 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  // const randomUserId = Math.floor(Math.random() * 10);
-  config.headers["user-id"] = 1;
-  // console.log(randomUserId, config);
+  let userId = localStorage.getItem("subsclife_token");
+  if (!userId) {
+    userId = (1 + Math.floor(Math.random() * 5)).toString();
+    localStorage.setItem("subsclife_token", userId);
+  }
+  config.headers["user-id"] = userId;
 
   return config;
 });

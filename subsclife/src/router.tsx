@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 import App from "./App";
 import Main from "@/pages/Main";
@@ -6,6 +6,7 @@ import Main from "@/pages/Main";
 import TaskDetail from "@/pages/TaskDetail";
 import Login from "@/pages/Login";
 import WriteTask from "@/pages/WriteTask";
+import ProtectGuard from "./components/ProtectGuard";
 
 const router = createBrowserRouter([
   {
@@ -18,11 +19,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/task",
-        element: <WriteTask />,
+        element: (
+          <ProtectGuard>
+            <WriteTask />
+          </ProtectGuard>
+        ),
       },
       {
         path: "/",
-        element: <Main />,
+        element: (
+          <ProtectGuard>
+            <Main />
+          </ProtectGuard>
+        ),
       },
       {
         path: "/search",
@@ -30,7 +39,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/task/:taskId",
-        element: <TaskDetail />,
+        element: (
+          <ProtectGuard>
+            <TaskDetail />
+          </ProtectGuard>
+        ),
       },
       {
         path: "/history",
@@ -78,7 +91,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/*",
-    element: <Main />,
+    element: <Navigate to="/" replace />,
   },
 ]);
 
