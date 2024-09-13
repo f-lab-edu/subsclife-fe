@@ -27,7 +27,6 @@ const GlobalStyles = createGlobalStyle`
 
   html, body, #root, body * {
     font-family: 'Pretendard';
-    font-weight: 400;
   }
 `;
 

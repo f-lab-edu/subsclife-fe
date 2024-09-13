@@ -16,6 +16,7 @@ import { postTaskForSubscribeById } from "@/api/task";
 
 import * as Icons from "@/assets/icons";
 import * as Styled from "./TaskCardContent.styled";
+import { useNavigate } from "react-router-dom";
 
 interface CSSComponentType {
   children?: ReactNode;
@@ -78,6 +79,7 @@ type TaskCardContentDateType = {
   taskId: number;
   startDate: string | Date | Dayjs;
   endDate: string | Date | Dayjs;
+  flag?: boolean;
 };
 
 const TaskCardContentDate = ({
@@ -149,10 +151,11 @@ const TaskCardContentGauge = ({
 };
 
 const TaskCardContentRemind = ({
-  // taskId,
+  taskId,
   startDate,
   endDate,
 }: TaskCardContentDateType) => {
+  const navigate = useNavigate();
   const { leftTime } = useTaskHourTimer({
     start: startDate,
     end: dayjs(endDate).add(3, "day"),
@@ -160,7 +163,7 @@ const TaskCardContentRemind = ({
 
   const clickHandler = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    console.log("회고");
+    navigate(`/remind/${taskId}/info`);
   };
 
   return (
