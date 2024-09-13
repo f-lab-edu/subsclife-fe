@@ -1,9 +1,31 @@
-import { AxiosError } from "axios";
-
 import instance from "./instance";
 import { TaskType } from "@/components/TaskCard/TaskCard";
 import { TaskDetailType } from "@/pages/TaskDetail/TaskDetail";
 import { TaskForWritingType } from "@/pages/WriteTask/WriteTask";
+import { AxiosResponse, AxiosError } from "axios";
+
+export type SearchedTaskType = {
+  taskId: number;
+  title: string;
+  simpleInfo: string;
+  startDate: string;
+  endDate: string;
+  subscriberCount: number;
+};
+
+type SearchedTaskResultType = {
+  items: SearchedTaskType[];
+  hasNext: boolean;
+};
+export type TaskByPageParams = {
+  keyword?: string;
+  taskId?: number;
+  start_date?: string;
+  end_date?: string;
+  page_size?: number;
+  start_from?: string;
+  end_to?: string;
+};
 
 export const getTasks = async (): Promise<TaskType[]> => {
   try {
@@ -39,6 +61,28 @@ export const getTaskByTaskId = async (
     console.log(error);
     return null;
   }
+};
+
+export const getTasksByPage = async (
+  params?: TaskByPageParams
+): Promise<AxiosResponse<SearchedTaskResultType> | null> => {
+  const query = Object.entries(params || "")
+    .filter(([key]) => !!key)
+    .map(([key, value]) => `${key}=${value}`)
+    .join("&");
+
+  const endPoint = `/api/v1/tasks?${query}`;
+  console.log(endPoint);
+
+  try {
+    const result = await instance.get<SearchedTaskResultType>(endPoint);
+
+    return result;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+  // }
 };
 
 export const postTaskForUnsubscribeById = async (taskId: number) => {

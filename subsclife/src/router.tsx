@@ -4,6 +4,7 @@ import App from "./App";
 import Main from "@/pages/Main";
 
 import TaskDetail from "@/pages/TaskDetail";
+import Search from "@/pages/Search";
 import Login from "@/pages/Login";
 import WriteTask from "@/pages/WriteTask";
 import Introduction from "@/pages/Introduction";
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/search",
-        element: <div>조회 페이지</div>,
+        element: <Search />,
       },
       {
         path: "/task/:taskId",

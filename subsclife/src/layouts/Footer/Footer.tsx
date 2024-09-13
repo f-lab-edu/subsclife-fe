@@ -1,46 +1,57 @@
 import { useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { useLayoutContext } from "@/contexts/layout/LayoutContext";
 
 import * as Icons from "@/assets/icons";
 import * as Styled from "./Footer.styled";
+import SearchTaskStore from "@/store/tasks";
 
-const FooterIcons = [
-  {
-    url: "/",
-    icon: <Icons.HomeIcon />,
-    activeIcon: <Icons.FilledHomeIcon />,
-  },
-  {
-    url: "/search",
-    icon: <Icons.SearchIcon />,
-    activeIcon: <Icons.FilledSearchIcon />,
-  },
-  {
-    url: "/history",
-    icon: <Icons.DocsIcon />,
-    activeIcon: <Icons.FilledDocsIcon />,
-  },
-];
+const PATH = {
+  HOME: "/",
+  SEARCH: "/search",
+  HISTORY: "/history",
+};
 
 const FooterContent = () => {
-  const { changeFooter } = useLayoutContext();
-  const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { changeFooter } = useLayoutContext();
+  const { changeScrollHeight, setTasks } = SearchTaskStore();
 
   const moveToCreateTask = () => {
     changeFooter(<></>);
     navigate("/task?page=0");
   };
 
+  const clearScrollHeight = () => {
+    changeScrollHeight(0);
+    setTasks([]);
+  };
+
   return (
     <Styled.Container>
-      {FooterIcons.map(({ url, icon: Icon, activeIcon: ActiveIcon }) => (
-        <Styled.NaviButton key={url}>
-          <Link to={url}>{pathname === url ? ActiveIcon : Icon}</Link>
-        </Styled.NaviButton>
-      ))}
+      <Styled.NaviButton
+        to={PATH.HOME}
+        onClick={clearScrollHeight}
+        className="footer-link"
+      >
+        {pathname === PATH.HOME ? <Icons.FilledHomeIcon /> : <Icons.HomeIcon />}
+      </Styled.NaviButton>
+      <Styled.NaviButton to={PATH.SEARCH} className="footer-link">
+        {pathname === PATH.SEARCH ? (
+          <Icons.FilledSearchIcon />
+        ) : (
+          <Icons.SearchIcon fill="#F5F7F8" />
+        )}
+      </Styled.NaviButton>
+      <Styled.NaviButton to={PATH.HISTORY} className="footer-link">
+        {pathname === PATH.HISTORY ? (
+          <Icons.FilledDocsIcon />
+        ) : (
+          <Icons.DocsIcon />
+        )}
+      </Styled.NaviButton>
       <Styled.AddTask onClick={moveToCreateTask}>
         <Icons.PlusIcon />
       </Styled.AddTask>

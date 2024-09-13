@@ -1,10 +1,15 @@
+import { PropsWithChildren } from "react";
+
 import { Logo } from "@/assets/icons";
 import * as Styled from "./LogoHeader.styled";
 
-const LogoHeader = () => {
+const LogoHeader = ({ children }: PropsWithChildren) => {
   return (
     <Styled.Container>
-      <Logo />
+      <Styled.LogoWrapper>
+        <Logo />
+      </Styled.LogoWrapper>
+      {children}
     </Styled.Container>
   );
 };

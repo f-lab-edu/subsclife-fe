@@ -55,6 +55,7 @@ const Container = styled.div`
     margin-bottom: 30px;
     border-radius: 10px;
     line-height: 24px;
+    white-space: pre-wrap;
   }
 
   .users {
