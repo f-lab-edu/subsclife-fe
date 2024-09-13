@@ -67,7 +67,7 @@ const History = () => {
             />
           ))
         ) : (
-          <div>No data found</div>
+          <div></div>
         )}
       </RemindCardContainer>
     </PaddingWrapper>
