@@ -33,7 +33,7 @@ type RemindCardType = {
   };
 };
 
-interface RemindCardProps {
+interface RemindDetailCardProps {
   remindId: string;
   startDate: string;
   endDate: string;
@@ -41,8 +41,8 @@ interface RemindCardProps {
   remindCardData: RemindCardType;
 }
 
-const RemindCard = (
-  { startDate, endDate, title, remindCardData }: RemindCardProps,
+const RemindDetailCard = (
+  { startDate, endDate, title, remindCardData }: RemindDetailCardProps,
   ref: Ref<HTMLDivElement>
 ) => {
   const { userInfo, remindContent } = remindCardData;
@@ -110,4 +110,4 @@ const RemindCard = (
   );
 };
 
-export default forwardRef(RemindCard);
+export default forwardRef(RemindDetailCard);

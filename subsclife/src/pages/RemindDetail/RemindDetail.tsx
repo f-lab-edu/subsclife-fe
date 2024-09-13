@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Header from "@/layouts/Header";
 import Footer from "@/layouts/Footer";
 import NaviHeader from "@/layouts/NaviHeader";
-import RemindCard from "@/components/RemindCard";
+import RemindDetailCard from "@/components/RemindDetailCard";
 import { getTerminatedRemindById, TerminatedRemindType } from "@/api/remind";
 
 import * as Icons from "@/assets/icons";
@@ -72,7 +72,7 @@ const TaskDetail = () => {
       </h2>
       <div className="card_list">
         {reminds.map((remindCardData) => (
-          <RemindCard
+          <RemindDetailCard
             key={remindCardData.remindContent.remindId}
             remindId={remindCardData.remindContent.remindId}
             title={title}
