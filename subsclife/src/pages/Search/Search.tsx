@@ -1,7 +1,6 @@
 import Footer from "@/layouts/Footer";
 import LogoHeader from "@/layouts/LogoHeader";
 import Header from "@/layouts/Header";
-import Loader from "@/components/Loader";
 import TaskCard from "@/components/TaskCard";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import useSearchTask from "./hooks/useSearchTask";
@@ -15,7 +14,6 @@ const Search = () => {
     hasNextPage,
     inputRef,
     searchKeyword,
-    isLoading,
     getTasks,
     keyboardHandler,
   } = useSearchTask();
@@ -28,14 +26,6 @@ const Search = () => {
   function observedGetTasks() {
     const { taskId, startDate, endDate } = tasks[tasks.length - 1];
     getTasks({ taskId, start_date: startDate, end_date: endDate });
-  }
-
-  if (isLoading) {
-    return (
-      <Loader>
-        <Loader.Loading />
-      </Loader>
-    );
   }
 
   return (
