@@ -20,11 +20,18 @@ const Wrapper = styled.div<{
   height: ${({ $height }) => $height};
 `;
 
-const LoadingSpan = styled.span`
+const size = {
+  lg: 48,
+  md: 24,
+  sm: 12,
+} as const;
+
+const LoadingSpan = styled.span<{ $size: "lg" | "md" | "sm" }>`
   position: relative;
   display: inline-block;
-  min-width: 48px;
-  min-height: 48px;
+  min-width: ${({ $size }) => size[$size]}px;
+  min-height: ${({ $size }) => size[$size]}px;
+  background-color: ${({ theme }) => theme.color.white};
   border: 2px solid ${({ theme }) => theme.color.black};
   border-radius: 50%;
   animation: ${infiniteRotate} 1s linear infinite;
@@ -37,7 +44,7 @@ const LoadingSpan = styled.span`
     top: 0;
     background: ${({ theme }) => theme.color["yellow-1"]};
     width: 3px;
-    height: 24px;
+    height: ${({ $size }) => size[$size] / 2}px;
     transform: translateX(-50%);
   }
   &::before {
@@ -48,7 +55,7 @@ const LoadingSpan = styled.span`
     top: 0;
     background: ${({ theme }) => theme.color.green};
     width: 3px;
-    height: 24px;
+    height: ${({ $size }) => size[$size] / 2}px;
     transform: translateX(-50%);
   }
 `;

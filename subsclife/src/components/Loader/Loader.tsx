@@ -19,7 +19,13 @@ const Container = ({
   );
 };
 
-const Loading = () => <Styled.LoadingSpan />;
+interface LoadingProps {
+  size?: "lg" | "md" | "sm";
+}
+
+const Loading = ({ size = "lg" }: LoadingProps) => (
+  <Styled.LoadingSpan $size={size} />
+);
 
 const Loader = Object.assign(Container, { Loading });
 
