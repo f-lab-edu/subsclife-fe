@@ -16,6 +16,7 @@ import WriteTask from "@/pages/WriteTask";
 import Introduction from "@/pages/Introduction";
 import ProtectGuard from "./components/ProtectGuard";
 import RemindDetail from "./pages/RemindDetail";
+import History from "./pages/History/History";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/history",
-        element: <div>회고 히스토리 페이지</div>,
+        element: (
+          <ProtectGuard>
+            <History />
+          </ProtectGuard>
+        ),
       },
       {
         path: "/history/:historyId",

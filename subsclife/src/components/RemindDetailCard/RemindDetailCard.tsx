@@ -3,7 +3,7 @@ import { forwardRef, Ref } from "react";
 
 import TaskCardContent from "../TaskCardContent";
 
-const RemindWrapper = styled.div`
+const RemindWrapper = styled.div<{ $percent: string }>`
   div {
     font-size: 14px;
     margin-bottom: 30px;
@@ -13,6 +13,19 @@ const RemindWrapper = styled.div`
 
     em {
       font-weight: bold;
+    }
+  }
+
+  .remind_gauge {
+    position: relative;
+    /* overflow: hidden; */
+    color: ${({ theme }) => theme.color.black};
+    background-color: ${({ theme }) => theme.color["yellow-6"]};
+
+    .inner_gauge {
+      background-color: ${({ theme }) => theme.color["yellow-1"]};
+      height: 100%;
+      width: ${({ $percent }) => $percent}%;
     }
   }
 `;
@@ -79,7 +92,7 @@ const RemindDetailCard = (
         endDate={endDate}
       />
       <TaskCardContent.Toggle>
-        <RemindWrapper>
+        <RemindWrapper $percent={achievementRate}>
           <div>
             <p>
               <em>달성율</em>
