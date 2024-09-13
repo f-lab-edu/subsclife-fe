@@ -105,7 +105,7 @@ const Introduction = () => {
             <em>FE</em>
           </p>
           <p>진성진</p>
-          <p>고창천</p>
+          <p>고청천</p>
         </div>
       </Styled.Footer>
     </Styled.Container>
