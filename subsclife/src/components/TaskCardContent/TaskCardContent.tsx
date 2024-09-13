@@ -5,10 +5,10 @@ import { MouseEvent, PropsWithChildren, ReactNode, useState } from "react";
 import useTaskHourTimer from "./hooks/useTaskHourTimer";
 import useTaskMinuteGuage from "./hooks/useTaskMinuteTimer";
 import { isBeforeActiveTask } from "@/utils/date";
-
-import * as Styled from "./TaskCardContent.styled";
-import * as Icons from "@/assets/icons";
 import { postTaskForSubscribeById } from "@/api/task";
+
+import * as Icons from "@/assets/icons";
+import * as Styled from "./TaskCardContent.styled";
 
 interface CSSComponentType {
   children?: ReactNode;
@@ -137,7 +137,7 @@ const TaskCardContentGauge = ({
 };
 
 const TaskCardContentRemind = ({
-  taskId,
+  // taskId,
   startDate,
   endDate,
 }: TaskCardContentDateType) => {

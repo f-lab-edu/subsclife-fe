@@ -1,7 +1,9 @@
+import { AxiosError } from "axios";
+
 import instance from "./instance";
 import { TaskType } from "@/components/TaskCard/TaskCard";
 import { TaskDetailType } from "@/pages/TaskDetail/TaskDetail";
-import { AxiosError } from "axios";
+import { TaskForWritingType } from "@/pages/WriteTask/WriteTask";
 
 export const getTasks = async (): Promise<TaskType[]> => {
   try {
@@ -11,6 +13,16 @@ export const getTasks = async (): Promise<TaskType[]> => {
   } catch (error) {
     console.log(error);
     return [];
+  }
+};
+
+export const postTask = async (task: TaskForWritingType) => {
+  try {
+    const result = await instance.post("/api/v1/tasks", task);
+    return result.status;
+  } catch (error) {
+    const err = error as AxiosError;
+    return err.status;
   }
 };
 
