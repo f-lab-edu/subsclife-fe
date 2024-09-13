@@ -25,7 +25,7 @@ const GlobalStyles = createGlobalStyle`
     src: url('/fonts/Pretendard-Bold.woff2') format('woff2');
   }
 
-  html, body, #root {
+  html, body, #root, body * {
     font-family: 'Pretendard';
     font-weight: 400;
   }

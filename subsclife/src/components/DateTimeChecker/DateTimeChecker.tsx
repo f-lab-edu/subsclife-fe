@@ -8,7 +8,7 @@ import * as Styled from "./DateTimeChecker.styled";
 
 interface DateTimeCheckerProps {
   title: string;
-  confirmDate: (date: Date) => void;
+  confirmDate: (date: string) => void;
   minDate?: Date;
 }
 
@@ -40,16 +40,21 @@ const DateTimeChecker = ({
   const formattedDate = dayjs(selectedDate?.toString()).format(
     "YYYY년 M월 D일"
   );
+
   const changeTime = (time: string) => {
     setSelectedTime(time);
     setPhase(DATE_TIME_PICKER_PHASE.CONFIRM);
   };
 
   const checkDateTime = () => {
-    const result = dayjs(selectedDate?.toString())
-      .set("hour", +selectedTime.slice(0, 2))
-      .toDate();
-    confirmDate(result);
+    if (selectedDate) {
+      const [time] = selectedTime.split(":");
+      const result = dayjs(selectedDate.toString())
+        .hour(+time)
+        .format("YYYY-MM-DDTHH:mm:ss");
+
+      confirmDate(result);
+    }
   };
 
   return (

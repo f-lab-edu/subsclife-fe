@@ -19,13 +19,13 @@ const useTasks = () => {
     const result = await getTasks();
     const now = dayjs();
 
-    const remindTasks = result.filter(({ endDate }) =>
-      isInRemindPeriod({ current: now, end: endDate })
-    );
+    const remindTasks = result
+      .filter(({ endDate }) => isInRemindPeriod({ current: now, end: endDate }))
+      .sort((a, b) => (dayjs(a.endDate).isBefore(b.endDate) ? -1 : 1));
 
-    const activeTasks = result.filter(({ endDate }) =>
-      isActiveTask({ current: now, end: endDate })
-    );
+    const activeTasks = result
+      .filter(({ endDate }) => isActiveTask({ current: now, end: endDate }))
+      .sort((a, b) => (dayjs(a.startDate).isBefore(b.startDate) ? -1 : 1));
 
     setCards({ activeTasks, remindTasks });
 

@@ -11,13 +11,13 @@ const useWriteTaskCalendar = (task: TaskForWritingType) => {
   const [startDate, setStartDate] = useState<string>(task.startDate || "");
   const [endDate, setEndDate] = useState<string>(task.endDate || "");
 
-  const updateStartDate = (date: Date) => {
-    setStartDate(dayjs(date).toJSON());
+  const updateStartDate = (date: string) => {
+    setStartDate(date);
     closeModal();
   };
 
-  const updateEndDate = (date: Date) => {
-    setEndDate(dayjs(date).toJSON());
+  const updateEndDate = (date: string) => {
+    setEndDate(date);
     closeModal();
   };
 
