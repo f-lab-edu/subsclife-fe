@@ -16,7 +16,7 @@ const ImageContainer = styled.img`
 
 const RemindImprove: React.FC = () => {
   const navigate = useNavigate();
-  const { taskId } = useParams<{taskId: string}>(); 
+  // const { taskId } = useParams<{taskId: string}>(); 
   return (
     <RemindContainer>
       <BackButton onClick={() => navigate(-1)}>{"< 이전"}</BackButton>

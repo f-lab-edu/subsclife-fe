@@ -14,9 +14,6 @@ const ImageContainer = styled.img`
   margin: 0 auto 0;
 `;
 
-interface RemindAchieveProps {
-  taskId: number;
-}
 const RemindAchieve: React.FC = (taskId) => {
   const navigate = useNavigate();
   return (
