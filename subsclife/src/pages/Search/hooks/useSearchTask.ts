@@ -10,18 +10,26 @@ const useSearchTask = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const keyboardHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+  const keyboardHandler = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
+      setIsLoading(true);
       const { value: keyword } = inputRef.current;
-      getTasks({ keyword });
-      setSearchKeyword(keyword);
+      const result = await getTasksByPage({ keyword });
+
+      if (result) {
+        const { items, hasNext } = result.data;
+        setTasks([...items]);
+        setSearchKeyword(keyword);
+        changeHasNextPage(hasNext);
+      }
+      setIsLoading(false);
     }
   };
 
   const getTasks = async (params?: TaskByPageParams) => {
     setIsLoading(true);
     const result = await getTasksByPage(params);
-
+    console.log(result);
     if (result) {
       const { items, hasNext } = result.data;
       setTasks([...tasks, ...items]);
