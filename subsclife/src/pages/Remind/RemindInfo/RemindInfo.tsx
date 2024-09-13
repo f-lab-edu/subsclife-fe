@@ -6,6 +6,7 @@ import TextBox from "./TextBox";
 import NumberInfo from "./NumberInfo";
 import UserList from "./UserList";
 
+
 const remindId = 1;
 const RemindInfo: React.FC = () => {
   const navigate = useNavigate();

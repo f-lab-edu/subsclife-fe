@@ -4,7 +4,7 @@ import NextButton from "../../../components/NextButton/NextButton";
 import InputBox from "../../../components/InputBox/InputBox"
 import { Outlet, useNavigate } from "react-router-dom";
 import { RemindContainer, BackButton } from "../Remind.styled"; 
-import ConsImage from "@/assets/cons.svg?url"; // 이미지 불러오기
+import ConsImage from "@/assets/cons.svg?url";
 import styled from "styled-components"; 
 
 const remindId = 1;

@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./NextButton.styled";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import instance from "@/api/instance";
 
 interface NextButtonProps {
   mode: "next" | "complete"; 
@@ -21,19 +21,10 @@ const NextButton: React.FC<NextButtonProps> = ({ mode, nextPage }) => {
           failReason: "string",
           improvementPlan: "string",
         };
-        const userId = 1;
-        const response = await axios.post(
-          "http://223.130.150.89:8080/api/v1/reminds",
-          data,
-          {
-            headers: {
-              "user-id": userId,
-            },
-          }
-        );
+        const response = await instance.post("/api/v1/reminds", data);
         console.log(response);
         if (response.status === 200) {
-          alert("완료되었습니다.");
+          console.log("회고 작성 완료했습니다");
         } else {
           console.log("완료 중 오류가 발생했습니다.");
         }

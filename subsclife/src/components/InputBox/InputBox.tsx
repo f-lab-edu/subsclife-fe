@@ -51,7 +51,6 @@ const InputBox: React.FC<InputBoxProps> = ({ maxLength, question }) => {
         value={text}
         onChange={handleTextChange}
         maxLength={maxLength}
-        placeholder="여기에 내용을 입력하세요"
       />
       <CharCount>
         {text.length} / {maxLength}

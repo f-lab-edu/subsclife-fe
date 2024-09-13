@@ -9,7 +9,6 @@ import ArchiveImage from "@/assets/archive.svg?url"; // 이미지 불러오기
 
 const remindId = 1;
 
-// 이미지 스타일
 const ImageContainer = styled.img`
   width: 238px;
   height: 211px;
@@ -23,7 +22,7 @@ const RemindAchieve: React.FC = () => {
       <BackButton onClick={() => navigate(-1)}>{"< 이전"}</BackButton>
       <TextBox textLines={["스스로 생각할 때", "얼마나 목표를", "달성했나요?"]} />
       <SliderComponent />
-      <ImageContainer src={ArchiveImage} alt="archive" /> {/* 이미지 배치 */}
+      <ImageContainer src={ArchiveImage} alt="archive" />
       <Outlet />
       <NextButton mode="next" nextPage={`/remind/${remindId}/pros`} />
     </RemindContainer>

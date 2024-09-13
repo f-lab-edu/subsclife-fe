@@ -22,7 +22,7 @@ const RemindPros: React.FC = () => {
   return (
     <RemindContainer>
       <BackButton onClick={() => navigate(-1)}>{"< 이전"}</BackButton>
-      <TextBox textLines={["왜 " + persent, "만큼 성취했다고 생각하시나요?"]}/>
+      <TextBox textLines={["왜 " + persent + "만큼", "달성 했다고 생각하시나요?"]}/>
       <InputBox question="왜 그렇게 생각하는 지 이유를 써 봅시다." maxLength={500}/>
       <ImageContainer src={ ProsImage } alt="probs" /> 
       <Outlet />

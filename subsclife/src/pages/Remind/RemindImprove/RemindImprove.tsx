@@ -7,8 +7,6 @@ import { RemindContainer, BackButton } from "../Remind.styled";
 import ImproveImage from "@/assets/improve.svg?url";
 import styled from "styled-components"; 
 
-// const remindId = 1;
-// 이미지 스타일
 const ImageContainer = styled.img`
   width: 238px;
   height: 211px;
