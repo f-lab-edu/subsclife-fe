@@ -10,3 +10,6 @@ export { default as AvatarCircleIcon } from "./avatar-circle.svg?react";
 export { default as ChevronDownIcon } from "./chevron_down.svg?react";
 export { default as ChevronUpIcon } from "./chevron_up.svg?react";
 export { default as ChevronLeftIcon } from "./chevron_left.svg?react";
+export { default as GoogleIcon } from "./google.svg?react";
+export { default as NaverIcon } from "./naver.svg?react";
+export { default as KakaotalkIcon } from "./kakaotalk.svg?react";

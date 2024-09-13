@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import App from "./App";
 import Main from "@/pages/Main";
 import TaskDetail from "@/pages/TaskDetail";
+import Login from "@/pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -87,14 +88,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <div>로그인 페이지</div>,
+        element: <Login />,
       },
     ],
   },
   {
     path: "/*",
     element: <Main />,
-    },
+  },
 ]);
 
 export default router;
