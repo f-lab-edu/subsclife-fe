@@ -51,6 +51,8 @@ const DateTimeChecker = ({
       const [time] = selectedTime.split(":");
       const result = dayjs(selectedDate.toString())
         .hour(+time)
+        .minute(0)
+        .second(0)
         .format("YYYY-MM-DDTHH:mm:ss");
 
       confirmDate(result);
