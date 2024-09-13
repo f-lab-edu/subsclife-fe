@@ -1,11 +1,14 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 import App from "./App";
 import Main from "@/pages/Main";
 
 import TaskDetail from "@/pages/TaskDetail";
 import Search from "@/pages/Search";
+import Login from "@/pages/Login";
 import WriteTask from "@/pages/WriteTask";
+import Introduction from "@/pages/Introduction";
+import ProtectGuard from "./components/ProtectGuard";
 
 const router = createBrowserRouter([
   {
@@ -18,11 +21,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/task",
-        element: <WriteTask />,
+        element: (
+          <ProtectGuard>
+            <WriteTask />
+          </ProtectGuard>
+        ),
       },
       {
         path: "/",
-        element: <Main />,
+        element: (
+          <ProtectGuard>
+            <Main />
+          </ProtectGuard>
+        ),
       },
       {
         path: "/search",
@@ -30,7 +41,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/task/:taskId",
-        element: <TaskDetail />,
+        element: (
+          <ProtectGuard>
+            <TaskDetail />
+          </ProtectGuard>
+        ),
       },
       {
         path: "/history",
@@ -72,13 +87,17 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <div>로그인 페이지</div>,
+        element: <Login />,
+      },
+      {
+        path: "/introduction",
+        element: <Introduction />,
       },
     ],
   },
   {
     path: "/*",
-    element: <Main />,
+    element: <Navigate to="/" replace />,
   },
 ]);
 

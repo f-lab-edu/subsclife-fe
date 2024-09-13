@@ -22,15 +22,15 @@ const slideUp = keyframes`
 `;
 
 const Container = styled.div`
+overflow: hidden;
   width: 100%;
-  height: 300px;
+  height: 350px;
   padding: 30px 10px;
   border-radius: 20px 20px 0px 0px;
-  background-color: ${({ theme }) => theme.color.white};
+  background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(100px);
-  box-shadow: 0 -10px 10px 0px ${({ theme }) => theme.color["gray-6"]};
-  /* transform: translateY(-100px); */
-  /* transition: all 0.5s ease-in-out forward; */
+  box-shadow: 0 -15px 15px -5px ${({ theme }) => theme.color["gray-6"]};
+  border: 1px solid rgba(255, 255, 255, 0.18);
   animation: ${slideUp} 0.7s ease-in-out forwards;
 `;
 
@@ -43,7 +43,7 @@ const Title = styled.h2`
 `;
 
 const List = styled.ul`
-  height: 300px;
+  height: 250px;
   overflow: scroll;
 `;
 
