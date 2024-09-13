@@ -1,14 +1,21 @@
+import {
+  Ref,
+  useState,
+  ReactNode,
+  forwardRef,
+  MouseEvent,
+  PropsWithChildren,
+} from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { css as cssStyle, RuleSet } from "styled-components";
-import { MouseEvent, PropsWithChildren, ReactNode, useState } from "react";
 
 import useTaskHourTimer from "./hooks/useTaskHourTimer";
 import useTaskMinuteGuage from "./hooks/useTaskMinuteTimer";
 import { isBeforeActiveTask } from "@/utils/date";
+import { postTaskForSubscribeById } from "@/api/task";
 
 import * as Styled from "./TaskCardContent.styled";
 import * as Icons from "@/assets/icons";
-import { postTaskForSubscribeById } from "@/api/task";
 
 interface CSSComponentType {
   children?: ReactNode;
@@ -17,23 +24,28 @@ interface CSSComponentType {
 
 interface TaskCardContentProps extends CSSComponentType {
   type?: "yellow" | "green";
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
-const TaskCardContent = ({
-  type = "yellow",
-  icon: Icon,
-  onClick,
-  children,
-  css = cssStyle``,
-}: TaskCardContentProps & { icon: ReactNode }) => {
-  return (
-    <Styled.Container type={type} $css={css} onClick={onClick}>
-      <i>{Icon}</i>
-      {children}
-    </Styled.Container>
-  );
-};
+const TaskCardContent = forwardRef(
+  (
+    {
+      type = "yellow",
+      icon: Icon,
+      onClick,
+      children,
+      css = cssStyle``,
+    }: TaskCardContentProps & { icon: ReactNode },
+    ref: Ref<HTMLDivElement>
+  ) => {
+    return (
+      <Styled.Container ref={ref} type={type} $css={css} onClick={onClick}>
+        <i>{Icon}</i>
+        {children}
+      </Styled.Container>
+    );
+  }
+);
 
 const TaskCardContentSubscriber = ({
   children,
@@ -137,7 +149,7 @@ const TaskCardContentGauge = ({
 };
 
 const TaskCardContentRemind = ({
-  taskId,
+  // taskId,
   startDate,
   endDate,
 }: TaskCardContentDateType) => {

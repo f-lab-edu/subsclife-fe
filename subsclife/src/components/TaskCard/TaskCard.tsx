@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import TaskCardContent from "../TaskCardContent";
 import { isActiveTask, isBeforeActiveTask } from "@/utils/date";
 import * as Icons from "@/assets/icons";
+import { forwardRef, Ref } from "react";
+import SearchTaskStore from "@/store/tasks";
 
 export interface TaskType {
   taskId: number;
@@ -19,7 +21,8 @@ interface TaskCardProps {
   cardData: TaskType;
 }
 
-const TaskCard = ({ cardData }: TaskCardProps) => {
+const TaskCard = ({ cardData }: TaskCardProps, ref: Ref<HTMLDivElement>) => {
+  const { changeScrollHeight } = SearchTaskStore();
   const navigate = useNavigate();
   const { taskId, title, subscriberCount, startDate, endDate } = cardData;
 
@@ -31,12 +34,14 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
   const isFinishedTask = now.isAfter(end);
 
   const taskCardClickHandler = () => {
-    console.log("click TaskCardContent");
+    const mainScrollHeight = document.querySelector("main")!.scrollHeight;
+    changeScrollHeight(mainScrollHeight);
     navigate(`/task/${taskId}`);
   };
 
   return (
     <TaskCardContent
+      ref={ref}
       icon={<Icons.UpRightArrowIcon />}
       css={css`
         margin-bottom: 20px;
@@ -78,4 +83,4 @@ const TaskCard = ({ cardData }: TaskCardProps) => {
   );
 };
 
-export default TaskCard;
+export default forwardRef(TaskCard);
