@@ -16,7 +16,6 @@ import WriteTask from "@/pages/WriteTask";
 import Introduction from "@/pages/Introduction";
 import ProtectGuard from "./components/ProtectGuard";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -64,26 +63,26 @@ const router = createBrowserRouter([
       },
       {
         path: "/remind",
-        element: <Remind />, 
+        element: <Remind />,
         children: [
           {
-            path: ":remindId/info",
+            path: ":taskId/info",
             element: <RemindInfo />,
           },
           {
-            path: ":remindId/archive",
+            path: ":taskId/archive",
             element: <RemindAchieve />,
           },
           {
-            path: ":remindId/pros",
+            path: ":taskId/pros",
             element: <RemindPros />,
           },
           {
-            path: ":remindId/cons",
+            path: ":taskId/cons",
             element: <RemindCons />,
           },
           {
-            path: ":remindId/improve",
+            path: ":taskId/improve",
             element: <RemindImprove />,
           },
         ],

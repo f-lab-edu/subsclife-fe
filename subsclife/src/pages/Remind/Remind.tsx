@@ -1,16 +1,21 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { RemindContainer, BackButton } from "./Remind.styled";
+import { BackButton } from "./Remind.styled";
+import * as Icons from "@/assets/icons";
 
 const Remind: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <RemindContainer>
-      <BackButton onClick={() => navigate(-1)}>{"< 이전"}</BackButton>
+    <>
+      <BackButton onClick={() => navigate(-1)}>
+        <Icons.ChevronLeftIcon />
+        <p>이전</p>
+      </BackButton>
+
       <Outlet />
-    </RemindContainer>
+    </>
   );
-}
+};
 
 export default Remind;
