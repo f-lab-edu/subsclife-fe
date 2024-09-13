@@ -6,6 +6,7 @@ import { getTasksByPage, TaskByPageParams } from "@/api/task";
 const useSearchTask = () => {
   const { tasks, setTasks, hasNextPage, changeHasNextPage, scrollHeight } =
     SearchTaskStore();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -18,12 +19,14 @@ const useSearchTask = () => {
   };
 
   const getTasks = async (params?: TaskByPageParams) => {
+    setIsLoading(true);
     const result = await getTasksByPage(params);
     if (result) {
       const { items, hasNext } = result.data;
       setTasks([...tasks, ...items]);
       changeHasNextPage(hasNext);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -45,6 +48,7 @@ const useSearchTask = () => {
     scrollHeight,
     hasNextPage,
     searchKeyword,
+    isLoading,
     getTasks,
     setTasks,
     changeHasNextPage,

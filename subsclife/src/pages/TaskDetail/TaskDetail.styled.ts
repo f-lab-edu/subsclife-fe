@@ -100,7 +100,7 @@ const SubscribeButton = styled(Button)<{ $subscribed?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: fit-content;
+  width: 116px;
   height: 40px;
   padding: 10px 24px;
   font-size: 18px;

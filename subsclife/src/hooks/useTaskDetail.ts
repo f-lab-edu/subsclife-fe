@@ -12,6 +12,7 @@ const SUCESS_RESULT_CODE = 200;
 const useTaskDetail = (taskId: string) => {
   const [task, setTask] = useState<TaskDetailType>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [subscribeIsLoading, setSubscribeIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
 
   const getSingleTask = async () => {
@@ -27,21 +28,25 @@ const useTaskDetail = (taskId: string) => {
   };
 
   const subscribeByTaskId = async () => {
+    setSubscribeIsLoading(true);
     if (task) {
       const result = await postTaskForSubscribeById(task.taskId);
       if (result === SUCESS_RESULT_CODE) {
         getSingleTask();
       }
     }
+    setSubscribeIsLoading(false);
   };
 
   const unsubscribeByTaskId = async () => {
+    setSubscribeIsLoading(true);
     if (task) {
       const result = await postTaskForUnsubscribeById(task.taskId);
       if (result === SUCESS_RESULT_CODE) {
         getSingleTask();
       }
     }
+    setSubscribeIsLoading(false);
   };
 
   useEffect(() => {
@@ -51,6 +56,7 @@ const useTaskDetail = (taskId: string) => {
   return {
     task,
     isLoading,
+    subscribeIsLoading,
     isError,
     subscribe: subscribeByTaskId,
     unsubscribe: unsubscribeByTaskId,

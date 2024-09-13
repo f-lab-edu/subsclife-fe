@@ -66,13 +66,16 @@ export const getTaskByTaskId = async (
 export const getTasksByPage = async (
   params?: TaskByPageParams
 ): Promise<AxiosResponse<SearchedTaskResultType> | null> => {
-  const query = Object.entries(params || "")
-    .filter(([key]) => !!key)
+  const convertedQuery = {
+    ...params,
+    task_id: params?.taskId,
+  };
+  const query = Object.entries(convertedQuery || "")
+    .filter(([, value]) => !!value)
     .map(([key, value]) => `${key}=${value}`)
     .join("&");
 
   const endPoint = `/api/v1/tasks?${query}`;
-  console.log(endPoint);
 
   try {
     const result = await instance.get<SearchedTaskResultType>(endPoint);
@@ -82,7 +85,6 @@ export const getTasksByPage = async (
     console.log(error);
     return null;
   }
-  // }
 };
 
 export const postTaskForUnsubscribeById = async (taskId: number) => {

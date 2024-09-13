@@ -6,6 +6,9 @@ type DateCheckType = {
   end?: string | Date | Dayjs;
 };
 
+const isCurrentBeforeEnd = ({ current, end }: DateCheckType) =>
+  current.isBefore(dayjs(end));
+
 const isBeforeActiveTask = ({ current, start }: DateCheckType) =>
   current.isBefore(dayjs(start));
 
@@ -19,6 +22,7 @@ const isUnsubscribeToNeedTask = ({ current, end }: DateCheckType) =>
   current.isAfter(dayjs(end).add(3, "day"));
 
 export {
+  isCurrentBeforeEnd,
   isBeforeActiveTask,
   isActiveTask,
   isInRemindPeriod,
