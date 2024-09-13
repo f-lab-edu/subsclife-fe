@@ -76,7 +76,6 @@ export const getTasksByPage = async (
     .join("&");
 
   const endPoint = `/api/v1/tasks?${query}`;
-  console.log(endPoint);
 
   try {
     const result = await instance.get<SearchedTaskResultType>(endPoint);
@@ -86,7 +85,6 @@ export const getTasksByPage = async (
     console.log(error);
     return null;
   }
-  // }
 };
 
 export const postTaskForUnsubscribeById = async (taskId: number) => {

@@ -1,19 +1,29 @@
 import Header from "@/layouts/Header";
 import Footer from "@/layouts/Footer";
 import LogoHeader from "@/layouts/LogoHeader";
+import Loader from "@/components/Loader";
 import TaskCard from "@/components/TaskCard";
 import useTasks from "@/hooks/useTasks";
 
 import * as Styled from "./Main.styled";
 
 const Main = () => {
-  const { activeTasks, remindTasks } = useTasks();
+  const { isLoading, activeTasks, remindTasks } = useTasks();
+
+  if (isLoading) {
+    return (
+      <Loader>
+        <Loader.Loading />
+      </Loader>
+    );
+  }
 
   return (
     <Styled.Container>
       <Header>
         <LogoHeader />
       </Header>
+
       <h1>작성할 회고</h1>
 
       <div className="task-box">

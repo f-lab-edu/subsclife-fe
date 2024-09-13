@@ -10,12 +10,14 @@ import { getTasks, postTaskForUnsubscribeById } from "@/api/task";
 import { TaskType } from "@/components/TaskCard";
 
 const useTasks = () => {
+  const [isLoading, setIsloading] = useState<boolean>(false);
   const [cards, setCards] = useState<{
     activeTasks: TaskType[];
     remindTasks: TaskType[];
   }>({ activeTasks: [], remindTasks: [] });
 
   const fetchTasks = async () => {
+    setIsloading(true);
     const result = await getTasks();
     const now = dayjs();
 
@@ -44,13 +46,14 @@ const useTasks = () => {
         alert("알 수 없는 에러가 발생했습니다.\n새로 고침을 실행 해주세요.");
       }
     }
+    setIsloading(false);
   };
 
   useEffect(() => {
     fetchTasks();
   }, []);
 
-  return cards;
+  return { ...cards, isLoading };
 };
 
 export default useTasks;
