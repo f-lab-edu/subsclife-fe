@@ -21,6 +21,7 @@ const useSearchTask = () => {
   const getTasks = async (params?: TaskByPageParams) => {
     setIsLoading(true);
     const result = await getTasksByPage(params);
+
     if (result) {
       const { items, hasNext } = result.data;
       setTasks([...tasks, ...items]);

@@ -30,14 +30,6 @@ const Search = () => {
     getTasks({ taskId, start_date: startDate, end_date: endDate });
   }
 
-  if (isLoading) {
-    return (
-      <Loader>
-        <Loader.Loading />
-      </Loader>
-    );
-  }
-
   return (
     <Styled.Container>
       <Header>
