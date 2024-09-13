@@ -2,7 +2,7 @@ import React from "react";
 import TextBox from "../../../components/TextBox/TextBox";
 import NextButton from "../../../components/NextButton/NextButton";
 import InputBox from "../../../components/InputBox/InputBox"
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { RemindContainer, BackButton } from "../Remind.styled"; 
 import ImproveImage from "@/assets/improve.svg?url";
 import styled from "styled-components"; 
@@ -16,7 +16,6 @@ const ImageContainer = styled.img`
 
 const RemindImprove: React.FC = () => {
   const navigate = useNavigate();
-  // const { taskId } = useParams<{taskId: string}>(); 
   return (
     <RemindContainer>
       <BackButton onClick={() => navigate(-1)}>{"< 이전"}</BackButton>

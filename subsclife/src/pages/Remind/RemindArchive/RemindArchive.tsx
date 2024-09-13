@@ -1,6 +1,6 @@
 import React from "react";
 import TextBox from "../../../components/TextBox/TextBox";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { RemindContainer, BackButton } from "../Remind.styled"; 
 import NextButton from "@/components/NextButton/NextButton";
 import SliderComponent from "./SliderComponent";
@@ -14,8 +14,9 @@ const ImageContainer = styled.img`
   margin: 0 auto 0;
 `;
 
-const RemindAchieve: React.FC = (taskId) => {
+const RemindAchieve: React.FC = () => {
   const navigate = useNavigate();
+  const { taskId } = useParams<{ taskId: string }>();
   return (
     <RemindContainer>
       <BackButton onClick={() => navigate(-1)}>{"< 이전"}</BackButton>
