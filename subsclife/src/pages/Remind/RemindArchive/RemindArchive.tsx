@@ -7,15 +7,17 @@ import SliderComponent from "./SliderComponent";
 import styled from "styled-components";
 import ArchiveImage from "@/assets/archive.svg?url"; // 이미지 불러오기
 
-const remindId = 1;
-
 const ImageContainer = styled.img`
   width: 238px;
   height: 211px;
   display: block; 
   margin: 0 auto 0;
 `;
-const RemindAchieve: React.FC = () => {
+
+interface RemindAchieveProps {
+  taskId: number;
+}
+const RemindAchieve: React.FC = (taskId) => {
   const navigate = useNavigate();
   return (
     <RemindContainer>
@@ -24,7 +26,7 @@ const RemindAchieve: React.FC = () => {
       <SliderComponent />
       <ImageContainer src={ArchiveImage} alt="archive" />
       <Outlet />
-      <NextButton mode="next" nextPage={`/remind/${remindId}/pros`} />
+      <NextButton mode="next" nextPage={`/remind/${taskId}/pros`} />
     </RemindContainer>
   );
 };
