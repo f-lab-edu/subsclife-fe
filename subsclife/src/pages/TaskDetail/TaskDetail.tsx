@@ -154,7 +154,7 @@ const TaskDetail = () => {
             {end}
           </p>
           <h2>활동 목표 설명</h2>
-          <div className="desc">{detail ?? "작성된 내용이 없습니다"}</div>
+          <div className="desc">{detail || "작성된 내용이 없습니다"}</div>
           <h2>
             참여 인원 <span>({subscribers.length} / 10)</span>
           </h2>

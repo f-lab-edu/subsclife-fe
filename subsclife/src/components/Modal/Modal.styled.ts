@@ -8,7 +8,6 @@ const Container = styled.div<{
   left: 50%;
   transform: translate(-50%);
   width: 350px;
-  padding: 70px 10px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(100px);
@@ -28,9 +27,11 @@ const Container = styled.div<{
       ? css`
           top: 20px;
           bottom: 20px;
+          padding: 70px 10px;
         `
       : css`
           top: 100px;
+          padding: 40px 10px;
         `}
 
   svg {

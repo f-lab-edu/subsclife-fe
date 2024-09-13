@@ -44,28 +44,34 @@ const useWriteTaskPage = () => {
   };
 
   const createNewTask = async (newTask: Partial<TaskForWritingType>) => {
+    setTask((prev) => ({ ...prev, ...newTask }));
     const completedTask = { ...task, ...newTask };
     const result = await postTask(completedTask);
-    if (result === 200) {
-      changeModal(() => (
-        <Modal
-          size="fit-content"
-          css={css`
-            div {
-              width: 100%;
-              font-size: 18px;
-              font-weight: bold;
-              text-align: center;
-              padding: 20px 10px;
-            }
-          `}
-        >
+
+    const isSuccess = result === 200;
+
+    changeModal(() => (
+      <Modal
+        size="fit-content"
+        css={css`
+          div {
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px 10px;
+          }
+        `}
+      >
+        {isSuccess ? (
           <div>활동이 등록되었습니다!</div>
-        </Modal>
-      ));
-      toggleModal(true);
-      navigate("/");
-    }
+        ) : (
+          <div>활동 제목을 입력해주세요!</div>
+        )}
+      </Modal>
+    ));
+    toggleModal(true);
+    navigate(isSuccess ? "/" : "/task?page=0");
   };
 
   const pages = [

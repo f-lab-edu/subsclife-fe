@@ -55,7 +55,7 @@ const WriteTaskPeriod = ({ task, movePrev, moveNext }: WriteTaskPageType) => {
         </Styled.ImageWrapper>
       </Layout.Content>
       <Layout.Bottom>
-        <button disabled={!startDate && !endDate} onClick={nextHandler}>
+        <button disabled={!startDate || !endDate} onClick={nextHandler}>
           완료
         </button>
       </Layout.Bottom>
